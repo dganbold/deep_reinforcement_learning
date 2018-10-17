@@ -120,19 +120,12 @@ class Agent():
             gamma (float): discount factor
         """
         states, actions, rewards, next_states, dones = experiences
-        # Get max predicted Q values (for next states) from target model
+        
+        # Get best action for next states from Q function
         _,next_state_actions = self.Q_network(next_states).detach().max(1)
+        
+        # Get predicted Q values for next states from target Q function
         Q_targets_next = self.Q_network_target(next_states).gather(1, next_state_actions.unsqueeze(1))
-        #Q_targets_next = self.Q_network_target(next_states).detach().max(1)[0]
-        #print (next_state_actions.size())
-        #print (Q_targets_next.size())
-        #print ("Q_targets_next size:{}".format(Q_targets_next.size()))
-        #_,next_state_actions = self.Q_network(next_states).detach().max(1)[0].unsqueeze(1)
-        #Q_targets_next_t = self.Q_network_target(next_states).detach().unsqueeze(1)
-        #print("Q_targets_next_t.shape:{}".format(len(Q_targets_next_t))
-        # Get max predicted Q values (for next states) from target model
-        #Q_targets_next = self.Q_network_target(next_states).detach().max(1)[0].unsqueeze(1)
-        #print ("Q_targets_next size:{}".format(Q_targets_next.size()))
 
         # Compute Q targets for current states
         Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
