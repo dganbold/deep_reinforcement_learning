@@ -8,8 +8,9 @@ from DoubleQLearner import Agent
 from collections import deque
 
 # Initialize environment object
+import os
 env_name = 'banana_collector'
-env = UnityEnvironment(file_name="/home/sonylsi/ML/deep-reinforcement-learning/p1_navigation/Banana_Linux/Banana.x86_64")
+env = UnityEnvironment(file_name=os.environ['HOME']+"/ML/deep-reinforcement-learning/p1_navigation/Banana_Linux/Banana.x86_64")
 
 # Get the default brain
 brain_name = env.brain_names[0]
