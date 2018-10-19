@@ -5,18 +5,18 @@ This repository contains :
   2. Policy-Based Methods:
 
 ## Important notes
-    The code works for PyTorch.
-    The agents interact with OpenAI gym and Unity environments.
+- The code works for PyTorch.
+- The agents interact with OpenAI gym and Unity environments.
 
 ## Features
-    Support CUDA.(Faster than CPU implementation)
-    Support discrete and continous state space.    
-    Support discrete and continous action space.
+* Support CUDA.(Faster than CPU implementation)
+* Support discrete and continous state space.    
+* Support discrete and continous action space.
 
-### Resources
-    * [Deep RL Bootcamp] (https://sites.google.com/view/deep-rl-bootcamp/lectures)
-    * [Deep Reinforcement Learning UC Berkeley] (http://rail.eecs.berkeley.edu/deeprlcourse/)
-    * [Udacity Deep Reinforcement Learning Nanodegree program] (https://www.udacity.com/)  
+## Resources
+* [Deep RL Bootcamp](https://sites.google.com/view/deep-rl-bootcamp/lectures)
+* [Deep Reinforcement Learning UC Berkeley](http://rail.eecs.berkeley.edu/deeprlcourse/)
+* [Udacity Deep Reinforcement Learning Nanodegree program](https://www.udacity.com/)  
 
 ## OpenAI Gym Benchmarks
 
