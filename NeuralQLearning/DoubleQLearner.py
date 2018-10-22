@@ -7,16 +7,6 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.nn as nn
 
-# -------------------------------------------------------------------- #
-# Hyper parameters
-# -------------------------------------------------------------------- #
-BUFFER_SIZE = int(1e5)  # replay buffer size
-BATCH_SIZE = 64         # minibatch size
-GAMMA = 0.99            # discount factor
-TAU = 1e-3              # for soft update of target parameters
-LR = 5e-4               # learning rate
-UPDATE_EVERY = 4        # how often to update the network
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # -------------------------------------------------------------------- #
@@ -25,27 +15,33 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class QNetwork(nn.Module):
     """Actor (Policy) Model."""
 
-    def __init__(self, state_size, action_size, seed, fc1_units=64, fc2_units=64):
+    def __init__(self, state_size, action_size, hidden_layers, seed):
         """Initialize parameters and build model.
         Params
         ======
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
+            hidden_layers: list of integers, the sizes of the hidden layers
             seed (int): Random seed
-            fc1_units (int): Number of nodes in first hidden layer
-            fc2_units (int): Number of nodes in second hidden layer
         """
         super(QNetwork, self).__init__()
         self.seed = torch.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, fc1_units)
-        self.fc2 = nn.Linear(fc1_units, fc2_units)
-        self.fc3 = nn.Linear(fc2_units, action_size)
+        # Add the first layer, input to a hidden layer
+        self.hidden_layers = nn.ModuleList([nn.Linear(state_size, hidden_layers[0])])
+        # Add a variable number of more hidden layers
+        layer_sizes = zip(hidden_layers[:-1], hidden_layers[1:])
+        self.hidden_layers.extend([nn.Linear(h1, h2) for h1, h2 in layer_sizes])
+        # Output layer
+        self.output = nn.Linear(hidden_layers[-1], action_size)
 
     def forward(self, state):
         """Build a network that maps state -> action values."""
-        x = F.relu(self.fc1(state))
-        x = F.relu(self.fc2(x))
-        return self.fc3(x)
+        # Forward through each layer in `hidden_layers`, with ReLU activation
+        x = state
+        for linear in self.hidden_layers:
+            x = F.relu(linear(x))
+        # Returns the action values
+        return self.output(x)
 
 # -------------------------------------------------------------------- #
 # Double Q-Learning
@@ -53,7 +49,7 @@ class QNetwork(nn.Module):
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, name, state_size, action_size, seed):
+    def __init__(self, name, state_size, action_size, param, seed):
         """Initialize an Agent object.
 
         Params
@@ -67,28 +63,33 @@ class Agent():
         self.action_size = action_size
         self.seed = random.seed(seed)
 
-        # Q-Network
-        self.Q_network = QNetwork(state_size, action_size, seed).to(device)
-        self.Q_network_target = QNetwork(state_size, action_size, seed).to(device)
-        self.optimizer = optim.Adam(self.Q_network.parameters(), lr=LR)
+        # Learning params
+        self.gamma = param['gamma']
+
+        # Q-Network (Fully connected)
+        self.Q_network = QNetwork(state_size, action_size, param['hidden_layers'], seed).to(device)
+        self.Q_network_target = QNetwork(state_size, action_size, param['hidden_layers'], seed).to(device)
+        self.optimizer = optim.Adam(self.Q_network.parameters(), lr=param['learning_rate'])
 
         # Replay memory
-        #self.state_buffer = FrameStack(FRAME_SIZE)
-        #self.state_buffer.reset(initial_state)
-        self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
-        # Initialize time step (for updating every UPDATE_EVERY steps)
+        self.memory = ReplayBuffer(action_size, param['replay_size'], param['batch_size'], seed)
+        # If enough samples are available in memory then start sampling
+        self.replay_start = param['replay_initial']
+        # Initialize time step (for updating every update_interval steps)
         self.t_step = 0
+        self.update_interval = param['update_interval']
+        self.thau = param['thau']
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
         self.memory.add(state, action, reward, next_state, done)
         # Learn every UPDATE_EVERY time steps.
-        self.t_step = (self.t_step + 1) % UPDATE_EVERY
+        self.t_step = (self.t_step + 1) % self.update_interval
         if self.t_step == 0:
             # If enough samples are available in memory, get random subset and learn
-            if len(self.memory) > BATCH_SIZE:
+            if len(self.memory) > self.replay_start:
                 experiences = self.memory.sample()
-                self.learn(experiences, GAMMA)
+                self.learn(experiences, self.gamma)
 
     def act(self, state, eps=0.):
         """Returns actions for given state as per current policy.
@@ -120,10 +121,10 @@ class Agent():
             gamma (float): discount factor
         """
         states, actions, rewards, next_states, dones = experiences
-        
+
         # Get best action for next states from Q function
         _,next_state_actions = self.Q_network(next_states).detach().max(1)
-        
+
         # Get predicted Q values for next states from target Q function
         Q_targets_next = self.Q_network_target(next_states).gather(1, next_state_actions.unsqueeze(1))
 
@@ -140,8 +141,8 @@ class Agent():
         loss.backward()
         self.optimizer.step()
 
-        # ------------------- update target network ------------------- #
-        self.soft_update(self.Q_network, self.Q_network_target, TAU)
+        # Update target network
+        self.soft_update(self.Q_network, self.Q_network_target, self.thau)
 
     def soft_update(self, local_model, target_model, tau):
         """Soft update model parameters.
