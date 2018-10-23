@@ -31,7 +31,7 @@ This repository contains :
 ### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
 - `CarRacing-v0` with _Coming soon!_
-- `LunarLander-v2` with _Coming soon!_
+- `LunarLander-v2` with [Double Q-Networks](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander_test.py) | solved in 699 episodes. Average Score: 201.71
 
 ### Toy Text
 - `FrozenLake-v0` with _Coming soon!_
