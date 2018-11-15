@@ -1,4 +1,4 @@
-# Q-Learning with Neural Network(Neural Q-Learning) in PyTorch
+## Q-Learning with Neural Network (Neural Q-Learning) in PyTorch
 
 
 ## Description
@@ -43,7 +43,15 @@ The max operator in standard Q-learning, uses the same values both to select and
 - [SciPy](https://www.scipy.org/)
 - [ipykernel](https://github.com/ipython/ipykernel)
 
-To set up your python environment to run the code in this repository, follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
+If you haven't this repository, please follow the [instructions in the GitHub repository](https://github.com/dganbold/deep_reinforcement_learning).
+
+## Supported environments
+
+### OpenAI Gym
+- [LunarLander](https://github.com/openai/gym#box2d)
+
+### Unity
+- [Navigation](https://github.com/openai/gym#box2d)
 
 ## Usage
 
