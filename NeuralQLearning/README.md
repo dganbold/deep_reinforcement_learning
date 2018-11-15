@@ -25,7 +25,7 @@ The second modification is to use a separate network(target Q-network) which con
     <img src="Content/q_target.png" height="100px">
 </p>
 
-Standard Q-learning uses the same values both to select and to evaluate an action. This makes it more likely to select overestimated values, resulting in overoptimistic value estimates. Decoupling the selection from the evaluation is the idea behind [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) for prevent this overestimation. In the Double Q-learning algorithm, intermediate best action is selected by gready policy from the current Q-network with next observations.
+Standard Q-learning uses the same values both to select and to evaluate an action. This makes it more likely to select overestimated values, resulting in overoptimistic value estimates. Decoupling the selection from the evaluation is the idea behind [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) for prevent this overestimation. In the Double Q-learning algorithm, intermediate best action is selected by gready policy from the current Q-network with next state.
 The value of this policy evaluated by target Q-network. This new Q target is shown below.
 
 <p align="center">
