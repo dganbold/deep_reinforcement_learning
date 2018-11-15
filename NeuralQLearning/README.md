@@ -10,7 +10,7 @@ This repository is a [PyTorch](https://www.pytorch.org/) implementation of Q-Lea
 - [Deep Quality-Value (DQV) Learning](https://arxiv.org/abs/1810.00368)
 
 ## Background
-Neural Q-learning use neural networks as function approximators for the action-value function Q. The architecture used here specifically takes observed states from the OpenAI gym simulator or Unity environment as input and passes these states through Multilayer perceptron(MLP or Artificial Neural Network - ANN) and produces a vector of action values (Q-value for each action).
+Neural Q-learning use neural networks as function approximators for the action-value function Q. The architecture used here specifically takes observed states from the OpenAI gym simulator or Unity environment as input and passes these states through Multilayer perceptron(MLP or Artificial Neural Network - ANN) and produces a vector of action values (Q value for each action).
 
 <p align="center">
     <img src="Content/q_network.png" height="300px">
@@ -44,7 +44,7 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 - [SciPy](https://www.scipy.org/)
 - [ipykernel](https://github.com/ipython/ipykernel)
 
-If you haven't this repository, please follow the [instructions in the GitHub repository](https://github.com/dganbold/deep_reinforcement_learning).
+If you haven't this repository, please follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
 
 ## Supported environments
 
