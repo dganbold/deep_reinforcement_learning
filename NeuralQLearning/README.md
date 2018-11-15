@@ -2,7 +2,7 @@
 
 
 ## Description
-This repo is a [PyTorch](https://www.pytorch.org/) implementation of Q-Learning with Neural Network, Double Q-learning, Q-Learning with Dueling Dueling Network Architecture and Quality-Value Learning based on these papers.
+This repository is a [PyTorch](https://www.pytorch.org/) implementation of Q-Learning with Neural Network, Double Q-learning, Dueling Network Architecture and Quality-Value Learning based on these papers.
 
 - [Human-level control through deep reinforcement learning](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html)
 - [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)
@@ -17,7 +17,6 @@ Neural Q-learning use neural networks as function approximators for the action-v
 </p>
 
 [Human-level control through deep reinforcement learning](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html) introduced two modification to standard online Q-Learning.
-
 First technique known as experience replay is allows for greater data efficiency. The experience replay is drawn at random from the stored agent's experiences which pooled over many episodes and to update the network. This randomization is also breaks correlations between the observations transitions(experiences). Therefore, it reduces the variance of the updates.
 
 The second modification is to use a separate network(target Q network) which consisting of weights at a past time step for generating the targets Q value. More precisely, every C updates clone the main Q network to obtain a target Q network and use it for generating the Q-learning targets for the following C updates to main Q network. Q target is calculated as below.
@@ -31,3 +30,31 @@ The max operator in standard Q-learning, uses the same values both to select and
 <p align="center">
     <img src="Content/double_q_learning.png" height="100px">
 </p>
+
+## Dependencies
+- [Conda](https://conda.io/docs/user-guide/install/index.html)
+- Python 3.6
+- [PyTorch 0.4.0](http://pytorch.org/)
+- [NumPy >= 1.11.0](http://www.numpy.org/)
+- [OpenAI Gym](https://github.com/openai/gym)
+- [Matplotlib](https://matplotlib.org/)
+- Jupyter
+- [Pandas](https://pandas.pydata.org/)
+- [SciPy](https://www.scipy.org/)
+- [ipykernel](https://github.com/ipython/ipykernel)
+
+To set up your python environment to run the code in this repository, follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
+
+## Usage
+
+- Execute the following command to train the agent:
+
+```
+$ python [Environment]/train.py
+```
+
+- Execute the following command to test the pre-trained agent:
+
+```
+$ python [Environment]/test.py
+```
