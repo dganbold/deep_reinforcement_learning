@@ -1,4 +1,4 @@
-## Q-Learning with Neural Network (Neural Q-Learning) in PyTorch
+# Q-Learning with Neural Network (Neural Q-Learning)
 
 
 ## Description
