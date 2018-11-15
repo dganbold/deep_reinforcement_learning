@@ -23,7 +23,7 @@ First technique known as experience replay is allows for greater data efficiency
 The second modification is to use a separate network(target Q network) which consisting of weights at a past time step for generating the targets Q value. More precisely, every C updates clone the main Q network to obtain a target Q network and use it for generating the Q-learning targets for the following C updates to main Q network. Q target is calculated as below.
 
 <p align="center">
-    <img src="Content/q_target.bmp" height="100px">
+    <img src="Content/q_target.png" height="100px">
 </p>
 
 The max operator in standard Q-learning, uses the same values both to select and to evaluate an action. This makes it more likely to select overestimated values, resulting in overoptimistic value estimates. Decoupling the selection from the evaluation is the idea behind Double Q-learning [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) for prevent this overestimation. In the Double Q-learning algorithm, alternative Q target value that takes the argmax of the main Q network when inputted with the next observations. These actions, together with the next observations, are passed into the target network to yield Q values at each update. This new Q target is shown below.
