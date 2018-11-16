@@ -56,14 +56,14 @@ conda activate drlenv
 ```
 
 3. To setup RL environment
-* [Optional] To install and use [OpenAI gym](https://github.com/openai/gym).  
+- `[Optional]` To install and use [OpenAI gym](https://github.com/openai/gym).
 	- Then, install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
 
-* [Optional] To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
+- `[Optional]` To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
 
-4. Clone the repository and navigate to the `python/` folder.  Then, 
+4. Clone the repository 
 ```bash
-git clone https://github.com/udacity/deep-reinforcement-learning.git
+git clone https://github.com/dganbold/deep_reinforcement_learning
 ```
 
 5. Install the dependencies
