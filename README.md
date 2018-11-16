@@ -39,9 +39,8 @@ This repository contains :
 - `CliffWalking-v0` with _Coming soon!_
 
 ## Unity-ML-Agents Benchmarks
-  https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md
-  https://github.com/Unity-Technologies/ml-agents
-  
+- _Coming soon!_
+
 
 ## Linux dependencies
 To set up your python environment to run the code in this repository, follow the instructions below.
@@ -57,10 +56,10 @@ conda activate drlenv
 ```
 
 3. To setup RL environment
-[Optional] Follow the instructions in [this repository](https://github.com/openai/gym) to perform a minimal install of OpenAI gym.  
+* [Optional] To install and use [OpenAI gym](https://github.com/openai/gym).  
 	- Then, install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
 
-[Optional] To install and use Unity ML-Agents [this repository](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
+* [Optional] To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
 
 4. Clone the repository and navigate to the `python/` folder.  Then, 
 ```bash
