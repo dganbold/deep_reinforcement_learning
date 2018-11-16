@@ -38,7 +38,7 @@ This repository contains :
 - `CliffWalking-v0` with _Coming soon!_
 
 ## Unity-ML-Agents Benchmarks
-- `BananaCollector` with [Neural Q-Learning](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector) | solved in 699 episodes. Average Score: 201.71
+- `BananaCollector` with [Neural Q-Learning](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector) | solved in 326 episodes. Average Score: 13.02
 
 
 ## Linux dependencies
