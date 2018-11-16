@@ -35,9 +35,8 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 ## Result
 
 <p align="center">
-    <img src="./BananaCollector/scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
+    <img src="Content/q_target.png" height="100px">
 </p>
-
 
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
@@ -49,14 +48,13 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 - Jupyter
 - [Pandas](https://pandas.pydata.org/)
 - [SciPy](https://www.scipy.org/)
-- [ipykernel](https://github.com/ipython/ipykernel)
 
-If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning).
+If you haven't this repository, please follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
 
 ## Supported environments
 
 ### OpenAI Gym
-- [LunarLander]((https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander))
+- [LunarLander](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander)
 
 ### Unity
 - [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)

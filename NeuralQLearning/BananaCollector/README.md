@@ -50,6 +50,6 @@ $ python test.py
 Environment solved in 326 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with this set of [hyperparameter](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/config.py). Average Score was 13.02. [check history](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_trained_426_episodes.csv) 
 
 <p align="center">
-    <img src="./scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="200px">
+    <img src="./scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
 </p>
 
