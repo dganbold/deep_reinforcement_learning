@@ -57,6 +57,7 @@ conda activate drlenv
 
 3. To setup RL environment
 - `[Optional]` To install and use [OpenAI gym](https://github.com/openai/gym).
+  - Next, install the **classic control** environment group by following the instructions [here](https://github.com/openai/gym#classic-control).
 	- Then, install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
 
 - `[Optional]` To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
