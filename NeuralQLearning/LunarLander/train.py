@@ -1,15 +1,13 @@
-import gym
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import pandas
-import OpenAIGym_Box2d
-
-from DoubleQLearner import Agent
-from collections import deque
+from config import *
+# Environment
+from unityagents import UnityEnvironment
+# Agent
+from Agent.DoubleQLearner import Agent
+#from Agent.NeuralQLearner import Agent
+from Agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
-params = OpenAIGym_Box2d.HYPERPARAMS['LunarLander']
+params = HYPERPARAMS['LunarLander']
 env_name = params['env_name']
 env = gym.make(env_name)
 env.seed(0)
@@ -20,8 +18,13 @@ state_size = env.observation_space.shape[0]
 print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
-# Initialize Double-DQN agent
-agent = Agent(name='ddqn', state_size=state_size, action_size=action_size, param=params, seed=0)
+# Initialize  agent
+agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=0)
+
+# Initialize replay buffer
+memory = ReplayBuffer(action_size, params['replay_size'], params['batch_size'], seed=0)
+update_interval = params['update_interval']
+replay_start = params['replay_initial']
 
 # Define parameters for training
 episodes = params['train_episodes']         # maximum number of training episodes
@@ -44,15 +47,24 @@ for i_episode in range(1, episodes+1):
     score = 0
     done = False
     # One episode loop
+    step = 0
     while not done:
         # Action selection by Epsilon-Greedy policy
-        action = agent.act(state, epsilon)
+        action = agent.eGreedy(state, epsilon)
 
         # Take action and get rewards and new state
         next_state, reward, done, _ = env.step(action)
 
         # Store experience
-        agent.step(state, action, reward, next_state, done)
+        memory.push(state, action, reward, next_state, done)
+
+        # Update Q-Learning
+        step += 1
+        if (step % update_interval) == 0 and len(memory) > replay_start:
+            # Recall experiences (miniBatch)
+            experiences = memory.recall()
+            # Train agent
+            agent.learn(experiences)
 
         # State transition
         state = next_state
@@ -79,17 +91,22 @@ for i_episode in range(1, episodes+1):
 
 # Export scores to csv file
 df = pandas.DataFrame(scores,columns=["scores","average_scores"])
-#df = pandas.DataFrame(data={"score": scores[0],"average_score": scores[1]})
 df.to_csv('scores/%s_%s_trained_%d_episodes.csv'% (agent.name, env_name, i_episode), sep=',',index=False)
 
 # Plot the scores
 fig = plt.figure()
 ax = fig.add_subplot(111)
-plt.plot(np.arange(len(scores)), scores)
-ax.legend(['Raw scores','Average scores'])
+c_max = df[["scores","average_scores"]].max(axis=1)
+c_min = df[["scores","average_scores"]].min(axis=1)
+episode = np.arange(len(scores))
+plt.plot(episode,df[["average_scores"]])
+plt.fill_between(episode,c_max,c_min,alpha=0.3)
+plt.title(env_name)
+ax.legend([agent.name + ' [ Average scores ]'])
 plt.ylabel('Score')
-plt.xlabel('Episode #')
+plt.xlabel('Episode')
 plt.show()
+fig.savefig('scores/%s_%s_batch_%d_lr_%.E_trained_%d_episodes.png'% (agent.name,env_name,params['batch_size'],params['learning_rate'],i_episode))   # save the figure to file
 
 # Close environment
 env.close()
