@@ -35,8 +35,9 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 ## Result
 
 <p align="center">
-    <img src="Content/q_target.png" height="100px">
+    <img src="./BananaCollector/scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
 </p>
+
 
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
@@ -45,11 +46,10 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 - [NumPy >= 1.11.0](http://www.numpy.org/)
 - [OpenAI Gym](https://github.com/openai/gym)
 - [Matplotlib](https://matplotlib.org/)
-- Jupyter
 - [Pandas](https://pandas.pydata.org/)
 - [SciPy](https://www.scipy.org/)
 
-If you haven't this repository, please follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
+If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning).
 
 ## Supported environments
 

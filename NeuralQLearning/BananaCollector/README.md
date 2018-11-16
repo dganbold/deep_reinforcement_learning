@@ -27,7 +27,7 @@ Num | Action        |
 0   | walk forward  |
 1   | walk backward |
 2   | turn left     |
-2   | turn right    |
+3   | turn right    |
 
 ## Reward
 A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana.
@@ -47,9 +47,12 @@ $ python test.py
 ```
 
 ## Result
-Environment solved in 326 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with this set of [hyperparameter](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/config.py). Average Score was 13.02. [check history](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_trained_426_episodes.csv) 
-
+Environment solved in 326 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with this set of [hyperparameter](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/config.py). Average Score was 13.02. [Score History](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_trained_426_episodes.csv) 
+And also solved in 326 episodes by [DoubleQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with same set of parameter. [Score History](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_trained_426_episodes.csv)
 <p align="center">
     <img src="./scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
 </p>
 
+## Future work
+- Implement a [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) and [Deep Quality-Value (DQV) Learning](https://arxiv.org/abs/1810.00368) with prioritized experience replay
+- Apply these algorithms to environment which provided implicit observations like Atari(train agent from raw pixels)
