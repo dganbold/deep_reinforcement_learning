@@ -4,8 +4,8 @@ sys.path.append('../')
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import pandas
 import os
+import pandas
 #
 from collections import deque
 #
@@ -19,6 +19,7 @@ HYPERPARAMS = {
         'replay_size':          100000,             # replay buffer size
         'replay_initial':       10000,              # replay buffer initialize
         'update_interval':      4,                  # network updating every update_interval steps
+        'fix_target_updates':   1,                 # fix the target Q for the fix_target_updates
 
         'hidden_layers':        [64, 64],           # hidden units and layers of Q-network
 
@@ -26,9 +27,9 @@ HYPERPARAMS = {
         'epsilon_final':        0.05,               # minimum value of epsilon
         'epsilon_decay':        0.993,              # factor for decreasing epsilon
 
-        'learning_rate':        5e-4,               # learning rate
+        'learning_rate':        1e-4,               # learning rate
         'gamma':                0.99,               # discount factor
         'thau':                 1e-3,               # for soft update of target parameters
-        'batch_size':           64                  # minibatch size
+        'batch_size':           128                  # minibatch size
     },
 }

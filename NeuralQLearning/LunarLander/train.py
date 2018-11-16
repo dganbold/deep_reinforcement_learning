@@ -1,26 +1,22 @@
-from config import *
-# Environment
-from unityagents import UnityEnvironment
-# Agent
-from Agent.DoubleQLearner import Agent
+import gym
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
+import pandas
+import OpenAIGym_Box2d
+
+from DoubleQLearner import Agent
+from collections import deque
 
 # Initialize environment object
-params = HYPERPARAMS['Banana']
+params = OpenAIGym_Box2d.HYPERPARAMS['LunarLander']
 env_name = params['env_name']
-env = UnityEnvironment(file_name=os.environ['HOME']+"/ML/deep-reinforcement-learning/p1_navigation/Banana_Linux/Banana.x86_64")
-
-# Get the default brain
-brain_name = env.brain_names[0]
-brain = env.brains[brain_name]
-
-# Reset the environment
-env_info = env.reset(train_mode=True)[brain_name]
+env = gym.make(env_name)
+env.seed(0)
 
 # Get environment parameter
-number_of_agents = len(env_info.agents)
-action_size = brain.vector_action_space_size
-state_size = len(env_info.vector_observations[0])
-print('Number of agents  : ', number_of_agents)
+action_size = env.action_space.n
+state_size = env.observation_space.shape[0]
 print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
@@ -41,11 +37,8 @@ epsilon_decay = params['epsilon_decay']     # factor for decreasing epsilon
 scores = []                         # list containing scores from each episode
 scores_window = deque(maxlen=scores_window_size)   # last (window_size) scores
 for i_episode in range(1, episodes+1):
-    # Reset the environment
-    env_info = env.reset(train_mode=True)[brain_name]
-
-    # Capture the current state
-    state = env_info.vector_observations[0]
+    # Reset the environment and Capture the current state
+    state = env.reset()
 
     # Reset score collector
     score = 0
@@ -56,10 +49,7 @@ for i_episode in range(1, episodes+1):
         action = agent.act(state, epsilon)
 
         # Take action and get rewards and new state
-        env_info = env.step(action)[brain_name]
-        next_state = env_info.vector_observations[0]
-        reward = env_info.rewards[0]
-        done = env_info.local_done[0]                  # if next is terminal state
+        next_state, reward, done, _ = env.step(action)
 
         # Store experience
         agent.step(state, action, reward, next_state, done)
@@ -78,8 +68,8 @@ for i_episode in range(1, episodes+1):
     print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon), end="")
     if i_episode % 100 == 0:
         print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon))
-    if np.mean(scores_window)>=13.0:
-        print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
+    if np.mean(scores_window)>=stop_scores:
+        print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-scores_window_size, np.mean(scores_window)))
         torch.save(agent.Q_network.state_dict(), 'models/%s_%s.pth'% (agent.name, env_name))
         break
 

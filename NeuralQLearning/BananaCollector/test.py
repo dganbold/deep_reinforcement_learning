@@ -2,7 +2,8 @@ from config import *
 # Environment
 from unityagents import UnityEnvironment
 # Agent
-from Agent.DoubleQLearner import Agent
+#from Agent.DoubleQLearner import Agent
+from Agent.NeuralQLearner import Agent
 
 # Initialize environment object
 params = HYPERPARAMS['Banana']
@@ -25,9 +26,9 @@ print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
 # Initialize Double-DQN agent
-agent = Agent(name='ddqn', state_size=state_size, action_size=action_size, param=params, seed=0)
+agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=0)
 # Load the pre-trained network
-agent.Q_network.load_state_dict(torch.load('models/%s_%s.pth'% (agent.name, env_name)))
+agent.import_network('models/%s_%s'% (agent.name,env_name))
 
 # Define parameters for test
 episodes = 2                        # maximum number of test episodes
@@ -46,7 +47,7 @@ for i_episode in range(1, episodes+1):
     # One episode loop
     while not done:
         # Action selection by Epsilon-Greedy policy
-        action = agent.act(state)
+        action = agent.greedy(state)
 
         # Take action and get rewards and new state
         env_info = env.step(action)[brain_name]

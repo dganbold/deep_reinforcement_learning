@@ -32,6 +32,12 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
     <img src="Content/double_q_learning.png" height="70px">
 </p>
 
+## Result
+
+<p align="center">
+    <img src="Content/q_target.png" height="100px">
+</p>
+
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
 - Python 3.6
@@ -49,21 +55,22 @@ If you haven't this repository, please follow the [instructions](https://github.
 ## Supported environments
 
 ### OpenAI Gym
-- [LunarLander](https://github.com/openai/gym#box2d)
+- [LunarLander]((https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander))
 
 ### Unity
-- [Navigation](https://github.com/openai/gym#box2d)
+- [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)
 
 ## Usage
 
 - Execute the following command to train the agent:
 
 ```
-$ python [Environment]/train.py
+$ cd [Environment]
+$ python train.py
 ```
 
 - Execute the following command to test the pre-trained agent:
 
 ```
-$ python [Environment]/test.py
+$ python test.py
 ```
