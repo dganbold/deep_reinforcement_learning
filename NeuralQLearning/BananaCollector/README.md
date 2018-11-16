@@ -13,7 +13,7 @@ If you haven't already, please follow the [instructions](https://github.com/dgan
 Download pre-built environment from one of the links below.
 - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
 
-Then, place the file in the NeuralQLearning/BananaCollector/ folder in the cloned Repository, and decompress the file.
+Then, place the file in the NeuralQLearning/BananaCollector/ folder in the cloned Repository, and decompress the file.<br />
 Next, change the file_name parameter to match the location of the Unity environment that you downloaded.
 
 ## State space

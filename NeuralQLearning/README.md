@@ -49,7 +49,7 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 - [Pandas](https://pandas.pydata.org/)
 - [SciPy](https://www.scipy.org/)
 
-If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning#Linux dependencies).
+If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning).
 
 ## Supported environments
 
