@@ -31,15 +31,14 @@ This repository contains :
 ### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
 - `CarRacing-v0` with _Coming soon!_
-- `LunarLander-v2` with [Double Q-Networks](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander_test.py) | solved in 699 episodes. Average Score: 201.71
-
+- `LunarLander-v2` with _Coming soon!_
 ### Toy Text
 - `FrozenLake-v0` with _Coming soon!_
 - `Blackjack-v0` with _Coming soon!_
 - `CliffWalking-v0` with _Coming soon!_
 
 ## Unity-ML-Agents Benchmarks
-- _Coming soon!_
+- `BananaCollector` with [Neural Q-Learning](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector) | solved in 699 episodes. Average Score: 201.71
 
 
 ## Linux dependencies
