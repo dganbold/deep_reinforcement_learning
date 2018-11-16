@@ -42,9 +42,31 @@ This repository contains :
   https://github.com/Unity-Technologies/ml-agents
   
 
-## Dependencies
+## Dependencies / __Linux__
 To set up your python environment to run the code in this repository, follow the instructions below.
 
+1. Create a new environment with Python 3.6.
+	```bash
+	conda create --name drlenv python=3.6
+	```
+
+2. Activate 
+	```bash
+  conda activate drlenv
+	```
+
+3. Follow the instructions in [this repository](https://github.com/openai/gym) to perform a minimal install of OpenAI gym.  
+	- Then, install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
+
+4. Clone the repository and navigate to the `python/` folder.  Then, 
+```bash
+git clone https://github.com/udacity/deep-reinforcement-learning.git
+```
+
+5. Install the dependencies
+```bash
+pip install .
+```
 
 # References
     https://github.com/udacity/deep-reinforcement-learning

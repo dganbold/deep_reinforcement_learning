@@ -50,7 +50,7 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 - [SciPy](https://www.scipy.org/)
 - [ipykernel](https://github.com/ipython/ipykernel)
 
-If you haven't this repository, please follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning).
+If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning).
 
 ## Supported environments
 
