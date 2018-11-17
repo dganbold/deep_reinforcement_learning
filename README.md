@@ -1,6 +1,9 @@
+<p align="center">
+    <img src="Assets/Pytorch_logo.png" height="100px">
+</p>
 ## PyTorch implementation of Deep Reinforcement Learning Algorithms
 
-This repository contains : 
+This repository contains :
   1. Value-Based Methods : (Neural Q-Learning, DQN, Double-DQN, Memory improved DQN)
   2. Policy-Based Methods:
 
@@ -48,7 +51,7 @@ To set up your python environment to run the code in this repository, follow the
 conda create --name drlenv python=3.6
 ```
 
-2. Activate 
+2. Activate
 ```bash
 conda activate drlenv
 ```
@@ -60,7 +63,7 @@ conda activate drlenv
 
 - `[Optional]` To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
 
-4. Clone the repository 
+4. Clone the repository
 ```bash
 git clone https://github.com/dganbold/deep_reinforcement_learning
 ```
