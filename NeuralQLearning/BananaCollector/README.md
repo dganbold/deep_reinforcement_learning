@@ -15,7 +15,7 @@ Then, place the file in the NeuralQLearning/BananaCollector/ folder in the clone
 
 ```bash
 $ cp Banana_Linux.zip NeuralQLearning/BananaCollector/
-& cd NeuralQLearning/BananaCollector/
+$ cd NeuralQLearning/BananaCollector/
 $ unzip Banana_Linux.zip
 ```
 Next, change the file_name parameter in train.py and test.py to match the binary file name of the Unity environment that you downloaded.
