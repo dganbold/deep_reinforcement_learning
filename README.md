@@ -47,7 +47,7 @@ This repository contains :
 ## Linux dependencies
 To set up your python environment to run the code in this repository, follow the instructions below.
 
-1. Create a new environment with Python 3.6.
+1. Install [conda](https://conda.io/docs/user-guide/install/linux.html) and create a new environment with Python 3.6.
 ```bash
 conda create --name drlenv python=3.6
 ```
