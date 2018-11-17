@@ -1,6 +1,7 @@
 <p align="center">
-    <img src="Assets/Pytorch_logo.png" height="100px">
+    <img src="Assets/Pytorch_logo.png" height="60px">
 </p>
+
 ## PyTorch implementation of Deep Reinforcement Learning Algorithms
 
 This repository contains :
