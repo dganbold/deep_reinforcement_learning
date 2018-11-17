@@ -1,4 +1,4 @@
-## PyTorch implementation of Deep Reinforcement learning algorithms
+## PyTorch implementation of Deep Reinforcement Learning Algorithms
 
 This repository contains : 
   1. Value-Based Methods : (Neural Q-Learning, DQN, Double-DQN, Memory improved DQN)
