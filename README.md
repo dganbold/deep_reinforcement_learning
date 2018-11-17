@@ -70,7 +70,7 @@ git clone https://github.com/dganbold/deep_reinforcement_learning
 
 6. Install the dependencies
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 # References
