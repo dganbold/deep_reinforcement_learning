@@ -8,7 +8,7 @@ from Agent.NeuralQLearner import Agent
 # Initialize environment object
 params = HYPERPARAMS['Banana']
 env_name = params['env_name']
-env = UnityEnvironment(file_name=os.environ['HOME']+"/ML/deep-reinforcement-learning/p1_navigation/Banana_Linux/Banana.x86_64")
+env = UnityEnvironment(file_name = "Banana_Linux/Banana.x86_64")
 
 # Get the default brain
 brain_name = env.brain_names[0]
