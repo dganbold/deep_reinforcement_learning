@@ -52,26 +52,25 @@ To set up your python environment to run the code in this repository, follow the
 conda create --name drlenv python=3.6
 ```
 
-2. Activate
+2. To activate this environment
 ```bash
-conda activate drlenv
+source activate drlenv
 ```
 
-3. To setup RL environment
-- `[Optional]` To install and use [OpenAI gym](https://github.com/openai/gym).
+3. To install and use [OpenAI gym](https://github.com/openai/gym).
   - Next, install the **classic control** environment group by following the instructions [here](https://github.com/openai/gym#classic-control).
   - Then, install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
 
-- `[Optional]` To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
+4. `[Optional]` To install and use [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Installation.md)
 
-4. Clone the repository
+5. Clone the repository
 ```bash
 git clone https://github.com/dganbold/deep_reinforcement_learning
 ```
 
-5. Install the dependencies
+6. Install the dependencies
 ```bash
-pip install .
+pip install -r requirements.txt
 ```
 
 # References
