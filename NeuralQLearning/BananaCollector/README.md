@@ -10,13 +10,17 @@
 If you haven't already, please follow the [instructions](https://github.com/dganbold/deep_reinforcement_learning) to set up your Python environment.
 
 #### Step 2: Download the Unity Environment
-Download pre-built environment for Linux from one of the [links](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip).
-
+Download pre-built environment for Linux from one of the [links](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip).<br />
 Then, place the file in the NeuralQLearning/BananaCollector/ folder in the cloned Repository, and decompress the file.<br />
-Next, change the file_name parameter to match the location of the Unity environment that you downloaded.
+```
+bash
+$ cp Banana_Linux.zip [your directory]/deep_reinforcement_learning/NeuralQLearning/BananaCollector/
+& cd [your directory]/deep_reinforcement_learning/NeuralQLearning/BananaCollector/
+$ unzip Banana_Linux.zip
+```
 
 ## State space
-The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction. 
+The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction.
 
 ## Action space
 The simulation contains a single agent that navigates a large environment. At each time step, it has four actions at its disposal:
