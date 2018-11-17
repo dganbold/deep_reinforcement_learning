@@ -13,11 +13,12 @@ If you haven't already, please follow the [instructions](https://github.com/dgan
 Download pre-built environment for Linux from one of the [links](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip).<br />
 Then, place the file in the NeuralQLearning/BananaCollector/ folder in the cloned Repository, and decompress the file.<br />
 
-```bash
+```
 $ cp Banana_Linux.zip NeuralQLearning/BananaCollector/
 $ cd NeuralQLearning/BananaCollector/
 $ unzip Banana_Linux.zip
 ```
+
 Next, change the file_name parameter in train.py and test.py to match the binary file name of the Unity environment that you downloaded.
 - Linux (x86): "Banana_Linux/Banana.x86"
 - Linux (x86_64): "Banana_Linux/Banana.x86_64"
