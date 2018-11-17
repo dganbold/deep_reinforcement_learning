@@ -54,16 +54,17 @@ If you want to run the code in this repository, check this [instructions](https:
 ## Supported environments
 
 ### OpenAI Gym
+
 #### Classic Control
-- `Acrobot-v1` with _Coming soon!_
-- `Cartpole-v0` with _Coming soon!_
-- `MountainCar-v0` with _Coming soon!_
-- `Pendulum-v0` with _Coming soon!_
+  - `Acrobot-v1` with _Coming soon!_
+  - `Cartpole-v0` with _Coming soon!_
+  - `MountainCar-v0` with _Coming soon!_
+  - `Pendulum-v0` with _Coming soon!_
 
 #### Box2d
-- `BipedalWalker-v2` with _Coming soon!_
-- `CarRacing-v0` with _Coming soon!_
-- `LunarLander-v2` with _Coming soon!_
+  - `BipedalWalker-v2` with _Coming soon!_
+  - `CarRacing-v0` with _Coming soon!_
+  - `LunarLander-v2` with _Coming soon!_
 
 ### Unity
 - [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)
