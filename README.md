@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="Assets/Pytorch_logo.png" height="60px">
+    <img src="assets/Pytorch_logo.png" height="60px">
 </p>
 
 ## PyTorch implementation of Deep Reinforcement Learning Algorithms

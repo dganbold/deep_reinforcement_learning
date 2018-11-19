@@ -1,7 +1,7 @@
 # Navigation
 
 <p align="center">
-    <img src="../Content/banana_collector_test.gif" height="300px">
+    <img src="../../assets/banana_collector_test.gif" height="300px">
 </p>
 
 ## Environment setup
@@ -58,7 +58,7 @@ Environment solved in 326 episodes by [NeuralQLearner](https://github.com/dganbo
 And also solved in 358 episodes by [DoubleQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with same set of parameter. [Score History](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/DoubleQLearner_Banana_Collector_trained_458_episodes.csv)
 
 <p align="center">
-    <img src="./scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
+    <img src="./scores/hyperparameter_coarse_tunning_summary.png" height="300px">
 </p>
 
 ## Future work
