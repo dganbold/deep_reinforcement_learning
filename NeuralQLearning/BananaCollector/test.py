@@ -1,9 +1,13 @@
-from config import *
+import sys
+sys.path.append('../')
+from utils.misc import *
+# Config
+from config.UnityML_Agent import *
 # Environment
 from unityagents import UnityEnvironment
 # Agent
-#from Agent.DoubleQLearner import Agent
-from Agent.NeuralQLearner import Agent
+#from agent.DoubleQLearner import Agent
+from agent.NeuralQLearner import Agent
 
 # Initialize environment object
 params = HYPERPARAMS['Banana']
