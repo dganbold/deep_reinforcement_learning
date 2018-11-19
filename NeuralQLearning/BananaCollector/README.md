@@ -57,7 +57,13 @@ $ python test.py
 In this project, hyperparameter tuning procedure is divided into two parts: coarse-tuning and fine-tuning. Coarse-tuning is done by Grid-Search, result shows below.
 
 <p align="center">
-    <img src="./scores/hyperparameter_coarse_tunning_summary.png" height="250px">
+    <img src="./scores/hyperparameter_coarse_tunning_summary_1.png" height="250px">
+</p>
+
+Q-Network with 64x64 hidden layers seems better than the 32x32 hidden layers. Here is the result, Q-network with 64x64 hidden layers and change batch size and learning rate.
+
+<p align="center">
+    <img src="./scores/hyperparameter_coarse_tunning_summary_2.png" height="250px">
 </p>
 
 Environment solved in 326 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/Agent/NeuralQLearner.py) with this set of [hyperparameter](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/config.py). Average Score was 13.02. [Score History](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_trained_426_episodes.csv).<br />
