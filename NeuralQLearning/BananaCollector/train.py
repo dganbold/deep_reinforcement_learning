@@ -112,7 +112,7 @@ df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
 df.to_csv('scores/%s_%s_batch_%d_lr_%.E_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],params['learning_rate'],i_episode), sep=',',index=False)
 
 # Plot the scores
-fig = plt.figure()
+fig = plt.figure(num=None,figsize=(10, 5))
 ax = fig.add_subplot(111)
 episode = np.arange(len(scores))
 plt.plot(episode,df['average_scores'])

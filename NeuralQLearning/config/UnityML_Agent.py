@@ -19,10 +19,10 @@ HYPERPARAMS = {
         'epsilon_final':        0.05,               # minimum value of epsilon
         'epsilon_decay':        0.993,              # factor for decreasing epsilon
 
-        'learning_rate':        8e-5,               # learning rate
+        'learning_rate':        4e-4,               # learning rate
         'gamma':                0.99,               # discount factor
         'thau':                 1e-3,               # for soft update of target parameters
-        'batch_size':           128                  # minibatch size
+        'batch_size':           64                  # minibatch size
     },
 }
 # -------------------------------------------------------------------- #
