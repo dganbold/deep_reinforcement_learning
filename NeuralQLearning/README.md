@@ -71,7 +71,7 @@ If you want to run the code in this repository, check this [instructions](https:
 - `LunarLander-v2` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander) | solved in 314 episodes
 
 ### Unity
-- `BananaCollector` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)  with NeuralQLearner| solved in 345 episodes
+- `BananaCollector` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)  with NeuralQLearner | solved in 345 episodes
 
 ## Usage
 
