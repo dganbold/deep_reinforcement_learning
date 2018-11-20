@@ -35,9 +35,8 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 ## Result
 
 <p align="center">
-    <img src="./BananaCollector/scores/Vanila_vs_Double_QLearner_Banana_Collector.png" height="300px">
+    <img src="./BananaCollector/scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E.png" height="300px">
 </p>
-
 
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
