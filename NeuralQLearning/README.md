@@ -34,16 +34,12 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 
 ## Result
 
-### OpenAI Gym
-
 <p align="center">
-    <img src="./LunarLander/scores/NeuralQLearner_vs_DoubleQLearner_LunarLander-v2_batch_64_lr_5E-04.png" height="250px">
+    <img src="./LunarLander/scores/NeuralQLearner_vs_DoubleQLearner_LunarLander-v2_batch_64_lr_5E-04.png" height="220px">
 </p>
 
-### Unity
-
 <p align="center">
-    <img src="./BananaCollector/scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E-04.png" height="250px">
+    <img src="./BananaCollector/scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E-04.png" height="220px">
 </p>
 
 
