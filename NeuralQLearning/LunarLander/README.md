@@ -1,5 +1,9 @@
 # OpenAI Gym's LunarLander-v2 environment
 
+<p align="center">
+    <img src="../../assets/lunar_lander_neural_q_learner_test.gif" height="250px">
+</p>
+
 ## Environment setup
 
 #### Clone the Repository
