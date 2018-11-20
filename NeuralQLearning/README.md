@@ -68,10 +68,10 @@ If you want to run the code in this repository, check this [instructions](https:
 #### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
 - `CarRacing-v0` with _Coming soon!_
-- `LunarLander-v2` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander) | solved in 314 episodes
+- [`LunarLander-v2`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander) with NeuralQLearner | solved in 314 episodes
 
 ### Unity
-- `BananaCollector` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector) | solved in 345 episodes
+- [`BananaCollector`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector) with NeuralQLearner | solved in 345 episodes
 
 ## Usage
 
