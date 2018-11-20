@@ -68,10 +68,10 @@ If you want to run the code in this repository, check this [instructions](https:
 #### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
 - `CarRacing-v0` with _Coming soon!_
-- [LunarLander-v2](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander)  NeuralQLearner with | solved in 314 episodes
+- `LunarLander-v2` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander) | solved in 314 episodes
 
 ### Unity
-- [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)  NeuralQLearner with | solved in 345 episodes
+- `BananaCollector` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)  with NeuralQLearner| solved in 345 episodes
 
 ## Usage
 
@@ -87,3 +87,6 @@ $ python train.py
 ```
 $ python test.py
 ```
+
+## Future work
+- Implement a [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) and [Deep Quality-Value (DQV) Learning](https://arxiv.org/abs/1810.00368) with prioritized experience replay
