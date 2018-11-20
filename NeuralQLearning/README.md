@@ -34,6 +34,14 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 
 ## Result
 
+### OpenAI Gym
+
+<p align="center">
+    <img src="./LunarLander/scores/NeuralQLearner_vs_DoubleQLearner_LunarLander-v2_batch_64_lr_5E-04.png" height="250px">
+</p>
+
+### Unity
+
 <p align="center">
     <img src="./BananaCollector/scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E-04.png" height="250px">
 </p>
@@ -56,18 +64,18 @@ If you want to run the code in this repository, check this [instructions](https:
 ### OpenAI Gym
 
 #### Classic Control
-  - `Acrobot-v1` with _Coming soon!_
-  - `Cartpole-v0` with _Coming soon!_
-  - `MountainCar-v0` with _Coming soon!_
-  - `Pendulum-v0` with _Coming soon!_
+- `Acrobot-v1` with _Coming soon!_
+- `Cartpole-v0` with _Coming soon!_
+- `MountainCar-v0` with _Coming soon!_
+- `Pendulum-v0` with _Coming soon!_
 
 #### Box2d
-  - `BipedalWalker-v2` with _Coming soon!_
-  - `CarRacing-v0` with _Coming soon!_
-  - `LunarLander-v2` with _Coming soon!_
+- `BipedalWalker-v2` with _Coming soon!_
+- `CarRacing-v0` with _Coming soon!_
+- [LunarLander-v2](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/LunarLander)  NeuralQLearner with | solved in 314 episodes
 
 ### Unity
-- [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)
+- [BananaCollector](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning/BananaCollector)  NeuralQLearner with | solved in 345 episodes
 
 ## Usage
 

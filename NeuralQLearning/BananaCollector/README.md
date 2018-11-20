@@ -66,8 +66,8 @@ Q-Network with 64x64 hidden layers seems better than the 32x32 hidden layers. He
     <img src="./scores/hyperparameter_coarse_tunning_summary_2.png" height="250px">
 </p>
 
-After some fine-tuning, environment solved in 345 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/NeuralQLearning/agent/NeuralQLearner.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/NeuralQLearning/config/UnityML_Agent.py). [Score History](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_batch_64_lr_4E-04_trained_445_episodes.csv).<br />
-And also solved in 361 episodes by [DoubleQLearner](https://github.com/dganbold/deep_reinforcement_learning/NeuralQLearning/agent/DoubleQLearner.py) with same set of hyperparameters. [Score History](https://github.com/dganbold/deep_reinforcement_learning/NeuralQLearning/BananaCollector/scores/DoubleQLearner_Banana_Collector_batch_64_lr_4E-04_trained_461_episodes.csv)
+After some fine-tuning, environment solved in 345 episodes by [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/agent/NeuralQLearner.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/config/UnityML_Agent.py). [score history](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/NeuralQLearner_Banana_Collector_batch_64_lr_4E-04_trained_445_episodes.csv).<br />
+And also solved in 361 episodes by [DoubleQLearner](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/agent/DoubleQLearner.py) with same set of hyperparameters. [score history](https://github.com/dganbold/deep_reinforcement_learning/blob/master/NeuralQLearning/BananaCollector/scores/DoubleQLearner_Banana_Collector_batch_64_lr_4E-04_trained_461_episodes.csv)
 
 <p align="center">
     <img src="./scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E-04.png" height="250px">

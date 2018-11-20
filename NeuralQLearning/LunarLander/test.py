@@ -1,9 +1,13 @@
-from config import *
+import sys
+sys.path.append('../')
+from utils.misc import *
+# Config
+from config.OpenAIGym_Box2d import *
 # Environment
-from unityagents import UnityEnvironment
+import gym
 # Agent
-#from Agent.DoubleQLearner import Agent
-from Agent.NeuralQLearner import Agent
+from agent.DoubleQLearner import Agent
+from agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
 params = HYPERPARAMS['LunarLander']

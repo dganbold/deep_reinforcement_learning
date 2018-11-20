@@ -1,14 +1,6 @@
-import sys
-sys.path.append('../')
-#
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import os
-import pandas
-#
-from collections import deque
-#
+# -------------------------------------------------------------------- #
+# Hyperparameters
+# -------------------------------------------------------------------- #
 HYPERPARAMS = {
     'LunarLander': {
         'env_name':             "LunarLander-v2",
@@ -18,7 +10,7 @@ HYPERPARAMS = {
 
         'replay_size':          100000,             # replay buffer size
         'replay_initial':       10000,              # replay buffer initialize
-        'update_interval':      4,                  # network updating every update_interval steps
+        'update_interval':      1,                  # network updating every update_interval steps
         'fix_target_updates':   1,                  # fix the target Q for the fix_target_updates
 
         'hidden_layers':        [64, 64],          # hidden units and layers of Q-network
@@ -33,3 +25,6 @@ HYPERPARAMS = {
         'batch_size':           64                  # minibatch size
     },
 }
+# -------------------------------------------------------------------- #
+# EOF
+# -------------------------------------------------------------------- #

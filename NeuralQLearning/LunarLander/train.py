@@ -1,10 +1,13 @@
-from config import *
+import sys
+sys.path.append('../')
+from utils.misc import *
+# Config
+from config.OpenAIGym_Box2d import *
 # Environment
-from unityagents import UnityEnvironment
+import gym
 # Agent
-from Agent.DoubleQLearner import Agent
-#from Agent.NeuralQLearner import Agent
-from Agent.ExperienceReplay import ReplayBuffer
+from agent.NeuralQLearner import Agent
+from agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
 params = HYPERPARAMS['LunarLander']
@@ -74,7 +77,7 @@ for i_episode in range(1, episodes+1):
 
     # Push to score list
     scores_window.append(score)
-    scores.append([score, np.mean(scores_window)])
+    scores.append([score, np.mean(scores_window), np.std(scores_window)])
 
     # Print episode summary
     print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon), end="")
@@ -90,17 +93,15 @@ for i_episode in range(1, episodes+1):
 """ End of the Training """
 
 # Export scores to csv file
-df = pandas.DataFrame(scores,columns=["scores","average_scores"])
-df.to_csv('scores/%s_%s_trained_%d_episodes.csv'% (agent.name, env_name, i_episode), sep=',',index=False)
+df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
+df.to_csv('scores/%s_%s_batch_%d_lr_%.E_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],params['learning_rate'],i_episode), sep=',',index=False)
 
 # Plot the scores
-fig = plt.figure()
+fig = plt.figure(num=None,figsize=(10, 5))
 ax = fig.add_subplot(111)
-c_max = df[["scores","average_scores"]].max(axis=1)
-c_min = df[["scores","average_scores"]].min(axis=1)
 episode = np.arange(len(scores))
-plt.plot(episode,df[["average_scores"]])
-plt.fill_between(episode,c_max,c_min,alpha=0.3)
+plt.plot(episode,df['average_scores'])
+plt.fill_between(episode,df['average_scores'].add(df['std']),df['average_scores'].sub(df['std']),alpha=0.3)
 plt.title(env_name)
 ax.legend([agent.name + ' [ Average scores ]'])
 plt.ylabel('Score')
