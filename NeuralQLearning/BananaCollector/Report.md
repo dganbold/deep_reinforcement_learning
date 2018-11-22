@@ -5,7 +5,7 @@
 </p>
 
 ## Description
-In this project, implemented popular reinforcement learning algorithms based on following papers with [PyTorch](https://www.pytorch.org/) and agent trained to navigate (and collect bananas!) in a large, square world.
+In this project, popular reinforcement learning algorithms are implemented based on following papers with [PyTorch](https://www.pytorch.org/) and agent trained to navigate (and collect bananas!) in a large, square world.
 
 - [Human-level control through deep reinforcement learning](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html)
 - [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)
