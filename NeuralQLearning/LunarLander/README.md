@@ -30,7 +30,3 @@ And also solved in 354 episodes by [DoubleQLearner](https://github.com/dganbold/
 <p align="center">
     <img src="./scores/NeuralQLearner_vs_DoubleQLearner_LunarLander-v2_batch_64_lr_5E-04.png" height="250px">
 </p>
-
-## Future work
-- Implement a [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) and [Deep Quality-Value (DQV) Learning](https://arxiv.org/abs/1810.00368) with prioritized experience replay
-- Apply these algorithms to environment which provided implicit observations like Atari(train agent from raw pixels)
