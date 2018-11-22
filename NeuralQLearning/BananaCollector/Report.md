@@ -113,7 +113,9 @@ One fundamental problem of Reinforcement Learning is Exploration/Exploitation di
 2. Training takes so long, especially with deep neural network (train agent from raw pixels).<br />
 
 The proposed algorithm is illustrated below. It based on probabilistic graphical model [Variational Auto-encoder (VAE)](https://arxiv.org/abs/1312.6114), allow us to models with 
-low dimensional representation (latent variables) of observation. Training is straightforward, during exploration, train VAE part for latent modeling and passes sampled latent vector through Q-Network, compute loss and perform backpropagation in exploitation. If you have any advice or guidance, I would really appreciate it!
+low dimensional representation (latent variables) of observation. Training is straightforward, during exploration, train VAE part for latent modeling and passes sampled latent vector through Q-Network, compute loss and perform backpropagation in exploitation. 
+
+_If you have any advice or guidance, I would really appreciate it!_
 
 <p align="center">
     <img src="./Q-VAE-gaussian_network.png" height="400px">
