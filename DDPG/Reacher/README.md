@@ -7,6 +7,7 @@
 # Reacher
 
 ![Trained Agent][image1]
+
 [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment.
 
 ## Environment setup (for Linux)
