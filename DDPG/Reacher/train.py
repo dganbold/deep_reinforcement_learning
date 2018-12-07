@@ -6,7 +6,6 @@ from config.UnityML_Agent import *
 # Environment
 from unityagents import UnityEnvironment
 # Agent
-#from agent.DoubleQLearner import Agent
 from agent.DDPG import Agent
 from agent.ExperienceReplay import ReplayBuffer
 
@@ -109,7 +108,7 @@ for i_episode in range(1, episodes+1):
 
 # Export scores to csv file
 df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
-df.to_csv('scores/%s_%s_batch_%d_lr_%.E_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],params['learning_rate'],i_episode), sep=',',index=False)
+df.to_csv('scores/%s_%s_batch_%d_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],i_episode), sep=',',index=False)
 
 # Plot the scores
 fig = plt.figure(num=None,figsize=(10, 5))
@@ -122,7 +121,7 @@ ax.legend([agent.name + ' [ Average scores ]'])
 plt.ylabel('Score')
 plt.xlabel('Episode')
 plt.show()
-fig.savefig('scores/%s_%s_batch_%d_lr_%.E_trained_%d_episodes.png'% (agent.name,env_name,params['batch_size'],params['learning_rate'],i_episode))   # save the figure to file
+fig.savefig('scores/%s_%s_batch_%d_trained_%d_episodes.png'% (agent.name,env_name,params['batch_size'],i_episode))   # save the figure to file
 
 # Close environment
 env.close()
