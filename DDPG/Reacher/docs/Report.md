@@ -1,13 +1,10 @@
 [//]: # (Image References)
 
-[image1]: https://user-images.githubusercontent.com/10624937/43851024-320ba930-9aff-11e8-8493-ee547c6af349.gif "Trained Agent"
-[image2]: https://user-images.githubusercontent.com/10624937/43851646-d899bf20-9b00-11e8-858c-29b5c2c94ccc.png "Crawler"
-
-
 # Project 2: Continuous Control
 
-![Trained Agent][image1]
-[Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment.
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/10624937/43851024-320ba930-9aff-11e8-8493-ee547c6af349.gif" height="250px">
+</p>
 
 ## Description
 In this project, implemented DDPG(Deep Deterministic Policy Gradient) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
@@ -22,6 +19,7 @@ Policy-based methods are well-suited for continuous action spaces but it has sev
     <img src="../../assets/actor_critic.png" height="220px">
 </p>
 
+## DDPG algorithm
 The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
 
 <p align="center">
@@ -34,6 +32,16 @@ Some other interesting aspects of the DDPG are shown below.
     <img src="../../assets/ddpg_algorithm.png" height="480px">
 </p>
 
+## Implementation
+The baseline code from [Deep Reinforcement Learning nanodegree course's GitHub](https://github.com/udacity/deep-reinforcement-learning/tree/master/ddpg-bipedal) which intended for solving OpenAI gym's BipedalWalker-v2 problem.
+
+In this project, Agent is modified to interact with Unity's [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment and hyperparameters are tuned.
+
+## Hyperparameter tuning
+Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
+
 ## Result
 
+
 ## Future work
+- Distributed Distributional Deterministic Policy Gradients [[arxiv]](https://arxiv.org/abs/1804.08617)
