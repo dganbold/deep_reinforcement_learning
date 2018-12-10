@@ -1,7 +1,7 @@
-# Q-Learning with Neural Network (Neural Q-Learning)
+# Deep Deterministic Policy Gradient(DDPG)
 
 ## Description
-In this project, implemented DDPG(Deep Deterministic Policy Gradient) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
+In this project, implemented Deep Deterministic Policy Gradient(DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
 
 - [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
 - [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)
@@ -10,14 +10,14 @@ In this project, implemented DDPG(Deep Deterministic Policy Gradient) algorithm 
 Policy-based methods are well-suited for continuous action spaces but it has several drawbacks suck as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
 
 <p align="center">
-    <img src="../../assets/actor_critic.png" height="220px">
+    <img src="../assets/actor_critic.png" height="220px">
 </p>
 
 ## DDPG algorithm
 The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
 
 <p align="center">
-    <img src="../../assets/ddpg.png" height="200px">
+    <img src="../assets/ddpg.png" height="200px">
 </p>
 
 ## Result
