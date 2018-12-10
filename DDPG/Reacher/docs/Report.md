@@ -1,5 +1,3 @@
-[//]: # (Image References)
-
 # Project 2: Continuous Control
 
 <p align="center">
@@ -7,7 +5,7 @@
 </p>
 
 ## Description
-In this project, implemented DDPG(Deep Deterministic Policy Gradient) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
+In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
 
 - [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
 - [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)

@@ -1,4 +1,4 @@
-# Deep Deterministic Policy Gradient(DDPG)
+# Deep Deterministic Policy Gradient (DDPG)
 
 ## Description
 In this project, implemented Deep Deterministic Policy Gradient(DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
@@ -63,4 +63,4 @@ $ python test.py
 ```
 
 ## Future work
-- Implement a D4PG(Distributed Distributional Deterministic Policy Gradients) [[arxiv]](https://arxiv.org/abs/1804.08617)
+- Implement a Distributed Distributional Deterministic Policy Gradients (D4PG) [[arxiv]](https://arxiv.org/abs/1804.08617)
