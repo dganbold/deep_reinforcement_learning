@@ -11,7 +11,8 @@ sys.path.append('../')
 import pprint
 #import torch
 import optuna
-#import time
+import time
+#
 from utils.misc import *
 # Config
 from config.UnityML_Agent import *
@@ -126,7 +127,7 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
         if i_episode % 100 == 0:
             print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon))
         if np.mean(scores_window)>=13.0:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
+            print('\nEnvironment solved in {:d} episodes!\tAverageimport time Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
             # Filename string
             #filename = filemeta.format(env_name,agent.name,params['name'],      \
             #                                params['actor_learning_rate'],      \
@@ -139,9 +140,10 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
         # Update exploration
         epsilon = max(epsilon_floor, epsilon*epsilon_decay)
     """ End of the Training """
+    print('\n')
 
     # Filename string
-    filename = filemeta.format(env_name,agent.name,params['name'],      \
+    filename = filemeta.format(env_name,agent.name,                     \
                                     params['actor_learning_rate'],      \
                                     params['critic_learning_rate'],     \
                                     fc_units,params['thau'],            \
@@ -149,10 +151,10 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
     agent.export_network('models/%s_%s'% (agent.name,filename))
     # Export scores to csv file
     df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
-    df.to_csv('scores/{:s}.csv'.format(filename), sep=',',index=False)
+    df.to_csv('./scores/{:s}.csv'.format(filename), sep=',',index=False)
 
     hyperscores.append([params['actor_learning_rate'], params['critic_learning_rate'], fc_units, params['thau'], params['batch_size'], i_episode-100])
-    log_df = pd.DataFrame(hyperscores,columns=['actor_learning_rate', 'critic_learning_rate', 'fc_units', 'thau', 'batch_size', 'i_episode'])
+    log_df = pandas.DataFrame(hyperscores,columns=['actor_learning_rate', 'critic_learning_rate', 'fc_units', 'thau', 'batch_size', 'i_episode'])
     log_df.to_csv('scores/{:s}.csv'.format(log_filename))
 
     time.sleep(1)
@@ -160,11 +162,11 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
 
 def objective(trial):
     # Optuna objective function
-    actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [5e-5, 1e-4, 3e-4, 5e-4])
-    critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [5e-5, 1e-4, 3e-4, 5e-4])
-    fc_units = trial.suggest_categorical('fc_units', [64, 128, 256])
-    thau = trial.suggest_categorical('thau', [9e-4, 1e-3, 2e-3])
-    batch_size = trial.suggest_categorical('batch_size', [32, 64, 128, 256])
+    actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [1e-4, 5e-4, 1e-3])
+    critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [1e-4, 5e-4, 1e-3])
+    fc_units = trial.suggest_categorical('fc_units', [128, 256])
+    thau = trial.suggest_categorical('thau', [1e-3, 2e-3])
+    batch_size = trial.suggest_categorical('batch_size', [128, 256])
 
     return train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch_size)
 
