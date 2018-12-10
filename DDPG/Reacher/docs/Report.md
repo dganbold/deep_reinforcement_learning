@@ -14,20 +14,20 @@ In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm
 Policy-based methods are well-suited for continuous action spaces but it has several drawbacks suck as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
 
 <p align="center">
-    <img src="../../assets/actor_critic.png" height="220px">
+    <img src="../../../assets/actor_critic.png" height="220px">
 </p>
 
 ## DDPG algorithm
 The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
 
 <p align="center">
-    <img src="../../assets/ddpg.png" height="200px">
+    <img src="../../../assets/ddpg.png" height="200px">
 </p>
 
 Some other interesting aspects of the DDPG are shown below.
 
 <p align="center">
-    <img src="../../assets/ddpg_algorithm.png" height="480px">
+    <img src="../../../assets/ddpg_algorithm.png" height="480px">
 </p>
 
 ## Implementation
