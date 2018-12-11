@@ -3,28 +3,20 @@
 
 import sys
 sys.path.append('../')
-
-#import matplotlib.pyplot as plt
-#import pandas as pd
-#import numpy as np
-#import config
-import pprint
-#import torch
-import optuna
-import time
-#
-from utils.misc import *
 # Config
+from utils.misc import *
 from config.UnityML_Agent import *
 # Environment
 from unityagents import UnityEnvironment
 # Agent
 from agent.DDPG import Agent
 from agent.ExperienceReplay import ReplayBuffer
+# Hyperparameter optimizer
+import optuna
+
 # Initialize environment object
 params = HYPERPARAMS['Reacher']
-env_name = params['env_name']
-env = UnityEnvironment(file_name='Reacher_Linux/Reacher.x86')
+env = UnityEnvironment(file_name='{:s}_Linux/{:s}.x86_64'.format(params['env_name'],params['env_name']))
 
 # Get the default brain
 brain_name = env.brain_names[0]
@@ -42,13 +34,13 @@ print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
 # Save results to csv file
-log_filename = 'hyperparameter_log'
+log_filename = 'hyperparameter_optimization'
 hyperscores = []
 
 def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch_size):
     # Set tunable parameters
     params['actor_hidden_layers'] = [int(fc_units), int(fc_units)]
-    params['critic_hidden_layers'] = [int(fc_units), int(fc_units), int(fc_units/2)]
+    params['critic_hidden_layers'] = [int(fc_units), int(fc_units/2)]
     params['actor_learning_rate'] = actor_learning_rate
     params['critic_learning_rate'] = critic_learning_rate
     params['thau'] = thau
@@ -66,21 +58,11 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
     update_interval = params['update_interval']
     replay_start = params['replay_initial']
 
-    # Define parameters for training
-    episodes = params['train_episodes']         # maximum number of training episodes
-    stop_scores = params['stop_scores']
-    scores_window_size = params['scores_window_size']
-
-    # Define parameters for e-Greedy policy
-    epsilon = params['epsilon_start']           # starting value of epsilon
-    epsilon_floor = params['epsilon_final']     # minimum value of epsilon
-    epsilon_decay = params['epsilon_decay']     # factor for decreasing epsilon
-
     """ Training loop  """
-    scores = []                                         # list containing scores from each episode
-    scores_window = deque(maxlen=scores_window_size)    # last (window_size) scores
-    filemeta = "env_{:s}_agent_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}_solved{:d}"
-    for i_episode in range(1, episodes+1):
+    scores = []                                                   # list containing scores from each episode
+    scores_window = deque(maxlen=params['scores_window_size'])    # last (window_size) scores
+    filemeta = "{:s}_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}_solved{:d}"
+    for i_episode in range(1, params['train_episodes']+1):
         # Reset the environment
         env_info = env.reset(train_mode=True)[brain_name]
         # Capture the current state
@@ -88,12 +70,12 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
 
         # Reset score collector
         score = 0
-        done = False
         # One episode loop
         step = 0
+        done = False
         while not done:
-            # Action selection by Epsilon-Greedy policy
-            action = agent.act(state, epsilon)
+            # Action selection
+            action = agent.act(state)
 
             # Take action and get rewards and new state
             env_info = env.step(action)[brain_name]
@@ -107,7 +89,7 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
             # Update Q-Learning
             step += 1
             if (step % update_interval) == 0 and len(memory) > replay_start:
-                # Recall experiences (miniBatch)
+                # Rechyperparameter_optimizationall experiences (miniBatch)
                 experiences = memory.recall()
                 # Train agent
                 agent.learn(experiences)
@@ -123,48 +105,38 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
         scores.append([score, np.mean(scores_window), np.std(scores_window)])
 
         # Print episode summary
-        print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon), end="")
+        print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}'.format(i_episode, score, np.mean(scores_window)), end="")
         if i_episode % 100 == 0:
-            print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon))
-        if np.mean(scores_window)>=13.0:
-            print('\nEnvironment solved in {:d} episodes!\tAverageimport time Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
-            # Filename string
-            #filename = filemeta.format(env_name,agent.name,params['name'],      \
-            #                                params['actor_learning_rate'],      \
-            #                                params['critic_learning_rate'],     \
-            #                                fc_units,params['thau'],            \
-            #                                params['batch_size'], i_episode-100)
-            #agent.export_network('models/%s_%s'% (agent.name,filename))
+            print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}'.format(i_episode, score, np.mean(scores_window)))
+        if np.mean(scores_window) >= params['stop_scores']:
+            print('\nEnvironment solved in {:d} episodes!\tAverageimport time Score: {:.2f}'.format(i_episode-params['scores_window_size'], np.mean(scores_window)))
             break
 
-        # Update exploration
-        epsilon = max(epsilon_floor, epsilon*epsilon_decay)
     """ End of the Training """
     print('\n')
 
     # Filename string
-    filename = filemeta.format(env_name,agent.name,                     \
-                                    params['actor_learning_rate'],      \
-                                    params['critic_learning_rate'],     \
-                                    fc_units,params['thau'],            \
-                                    params['batch_size'], i_episode-100)
-    agent.export_network('models/%s_%s'% (agent.name,filename))
+    filename = filemeta.format( params['env_name'],agent.name,      \
+                                params['actor_learning_rate'],      \
+                                params['critic_learning_rate'],     \
+                                fc_units,params['thau'],            \
+                                params['batch_size'], i_episode-100)
+    agent.export_network('./models/{:s}'.format(filename))
     # Export scores to csv file
     df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
     df.to_csv('./scores/{:s}.csv'.format(filename), sep=',',index=False)
 
-    hyperscores.append([params['actor_learning_rate'], params['critic_learning_rate'], fc_units, params['thau'], params['batch_size'], i_episode-100])
+    hyperscores.append([params['actor_learning_rate'], params['critic_learning_rate'], fc_units, params['thau'], params['batch_size'], np.mean(scores_window), i_episode-params['scores_window_size']])
     log_df = pandas.DataFrame(hyperscores,columns=['actor_learning_rate', 'critic_learning_rate', 'fc_units', 'thau', 'batch_size', 'i_episode'])
     log_df.to_csv('scores/{:s}.csv'.format(log_filename))
 
-    time.sleep(1)
-    return (i_episode - 100)
+    return (params['stop_scores']-np.mean(scores_window))
 
 def objective(trial):
     # Optuna objective function
     actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [1e-4, 5e-4, 1e-3])
     critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [1e-4, 5e-4, 1e-3])
-    fc_units = trial.suggest_categorical('fc_units', [128, 256])
+    fc_units = trial.suggest_categorical('fc_units', [64, 128, 256])
     thau = trial.suggest_categorical('thau', [1e-3, 2e-3])
     batch_size = trial.suggest_categorical('batch_size', [128, 256])
 
@@ -173,10 +145,8 @@ def objective(trial):
 # Create a new Optuna study object.
 study = optuna.create_study()
 # Invoke optimization of the objective function.
-study.optimize(objective , n_trials=1, n_jobs=1)
-
-#Print and Save result to .csv file
+study.optimize(objective , n_trials=300, n_jobs=1)
+# Print and Save result to .csv file
 print('Best value: {} (params: {})\n'.format(study.best_value, study.best_params))
-
 # Close the environment
 env.close()

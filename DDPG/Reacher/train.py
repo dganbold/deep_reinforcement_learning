@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../')
-from utils.misc import *
 # Config
+from utils.misc import *
 from config.UnityML_Agent import *
 # Environment
 from unityagents import UnityEnvironment
@@ -11,8 +11,7 @@ from agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
 params = HYPERPARAMS['Reacher']
-env_name = params['env_name']
-env = UnityEnvironment(file_name='Reacher_Linux/Reacher.x86')
+env = UnityEnvironment(file_name='{:s}_Linux/{:s}.x86_64'.format(params['env_name'],params['env_name']))
 
 # Get the default brain
 brain_name = env.brain_names[0]
@@ -30,27 +29,19 @@ print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
 # Initialize agent
-agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=0)
+agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=params['random_seed'])
 
 # Initialize replay buffer
-memory = ReplayBuffer(action_size, params['replay_size'], params['batch_size'], seed=0)
-update_interval = params['update_interval']
-replay_start = params['replay_initial']
+memory = ReplayBuffer(action_size, params['replay_size'], params['batch_size'], seed=params['random_seed'])
 
-# Define parameters for training
-episodes = params['train_episodes']         # maximum number of training episodes
-stop_scores = params['stop_scores']
-scores_window_size = params['scores_window_size']
-
-# Define parameters for e-Greedy policy
-epsilon = params['epsilon_start']           # starting value of epsilon
-epsilon_floor = params['epsilon_final']     # minimum value of epsilon
-epsilon_decay = params['epsilon_decay']     # factor for decreasing epsilon
+print('Hyperparameter values:')
+pprint.pprint(params)
 
 """ Training loop  """
-scores = []                                 # list containing scores from each episode
-scores_window = deque(maxlen=scores_window_size)   # last (window_size) scores
-for i_episode in range(1, episodes+1):
+filename_format = "{:s}_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}"
+scores = []                                                  # list containing scores from each episode
+scores_window = deque(maxlen=params['scores_window_size'])   # last (window_size) scores
+for i_episode in range(1, params['train_episodes']+1):
     # Reset the environment
     env_info = env.reset(train_mode=True)[brain_name]
 
@@ -59,12 +50,12 @@ for i_episode in range(1, episodes+1):
 
     # Reset score collector
     score = 0
-    done = False
     # One episode loop
     step = 0
+    done = False
     while not done:
-        # Action selection by Epsilon-Greedy policy
-        action = agent.act(state, epsilon)
+        # Action selection
+        action = agent.act(state)
 
         # Take action and get rewards and new state
         env_info = env.step(action)[brain_name]
@@ -75,9 +66,9 @@ for i_episode in range(1, episodes+1):
         # Store experience
         memory.push(state, action, reward, next_state, done)
 
-        # Update Q-Learning
+        # Update critic and actor policy
         step += 1
-        if (step % update_interval) == 0 and len(memory) > replay_start:
+        if (step % params['update_interval']) == 0 and len(memory) > params['batch_size']:
             # Recall experiences (miniBatch)
             experiences = memory.recall()
             # Train agent
@@ -94,21 +85,27 @@ for i_episode in range(1, episodes+1):
     scores.append([score, np.mean(scores_window), np.std(scores_window)])
 
     # Print episode summary
-    print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon), end="")
+    print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}'.format(i_episode, score, np.mean(scores_window)), end="")
     if i_episode % 100 == 0:
-        print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon))
-    if np.mean(scores_window)>=13.0:
-        print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
-        agent.export_network('models/%s_%s'% (agent.name,env_name))
+        print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}'.format(i_episode, score, np.mean(scores_window)))
+    if np.mean(scores_window) >= params['stop_scores']:
+        print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-params['scores_window_size'], np.mean(scores_window)))
         break
 
-    # Update exploration
-    epsilon = max(epsilon_floor, epsilon*epsilon_decay)
 """ End of the Training """
+
+# Filename string
+filename = filename_format.format(  params['env_name'],agent.name,      \
+                                    params['actor_learning_rate'],      \
+                                    params['critic_learning_rate'],     \
+                                    params['actor_hidden_layers'][0],   \
+                                    params['thau'],params['batch_size'])
+# Export trained agent's parameters
+agent.export_network('./models/{:s}'.format(filename))
 
 # Export scores to csv file
 df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
-df.to_csv('scores/%s_%s_batch_%d_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],i_episode), sep=',',index=False)
+df.to_csv('./scores/{:s}.csv'.format(filename), sep=',',index=False)
 
 # Plot the scores
 fig = plt.figure(num=None,figsize=(10, 5))
@@ -121,7 +118,7 @@ ax.legend([agent.name + ' [ Average scores ]'])
 plt.ylabel('Score')
 plt.xlabel('Episode')
 plt.show()
-fig.savefig('scores/%s_%s_batch_%d_trained_%d_episodes.png'% (agent.name,env_name,params['batch_size'],i_episode))   # save the figure to file
+fig.savefig('scores/{:s}.png'.format(filename))   # save the figure to file
 
 # Close environment
 env.close()

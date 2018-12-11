@@ -1,19 +1,17 @@
 import sys
 sys.path.append('../')
-from utils.misc import *
 # Config
+from utils.misc import *
 from config.UnityML_Agent import *
 # Environment
 from unityagents import UnityEnvironment
 # Agent
-#from agent.DoubleQLearner import Agent
 from agent.DDPG import Agent
 from agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
 params = HYPERPARAMS['Reacher']
-env_name = params['env_name']
-env = UnityEnvironment(file_name='Reacher_Linux/Reacher.x86')
+env = UnityEnvironment(file_name='{:s}_Linux/{:s}.x86_64'.format(params['env_name'],params['env_name']))
 
 # Get the default brain
 brain_name = env.brain_names[0]
@@ -30,13 +28,14 @@ print('Number of agents  : ', number_of_agents)
 print('Number of actions : ', action_size)
 print('Dimension of state space : ', state_size)
 
-# Initialize Double-DQN agent
+# Initialize agent
 agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=0)
+
 # Load the pre-trained network
 agent.import_network('models/%s_%s'% (agent.name,env_name))
 
 # Define parameters for test
-episodes = 2                        # maximum number of test episodes
+episodes = 2                                       # maximum number of test episodes
 
 """ Test loop  """
 for i_episode in range(1, episodes+1):
@@ -51,8 +50,8 @@ for i_episode in range(1, episodes+1):
     done = False
     # One episode loop
     while not done:
-        # Action selection by Epsilon-Greedy policy
-        action = agent.greedy(state)
+        # Action selection
+        action = agent.act(state)
 
         # Take action and get rewards and new state
         env_info = env.step(action)[brain_name]
