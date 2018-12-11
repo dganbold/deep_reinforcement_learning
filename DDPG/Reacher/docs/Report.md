@@ -4,13 +4,20 @@
     <img src="https://user-images.githubusercontent.com/10624937/43851024-320ba930-9aff-11e8-8493-ee547c6af349.gif" height="250px">
 </p>
 
-## Description
+# Description
 In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
 
 - [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
 - [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)
 
-## Background
+## Environment
+In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of the agent is to maintain its position at the target location for as many time steps as possible.
+
+The observation space consists of 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm. Each action is a vector with four numbers, corresponding to torque applicable to two joints. Every entry in the action vector should be a number between -1 and 1.
+
+The task is episodic, and in order to solve the environment, agent must get an average score of +30 over 100 consecutive episodes.
+
+# Background
 Policy-based methods are well-suited for continuous action spaces but it has several drawbacks suck as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
 
 <p align="center">
@@ -30,16 +37,16 @@ Some other interesting aspects of the DDPG are shown below.
     <img src="../../../assets/ddpg_algorithm.png" height="480px">
 </p>
 
-## Implementation
+# Implementation
 The baseline code from [Deep Reinforcement Learning nanodegree course's GitHub](https://github.com/udacity/deep-reinforcement-learning/tree/master/ddpg-bipedal) which intended for solving OpenAI gym's BipedalWalker-v2 problem.
-
 In this project, Agent is modified to interact with Unity's [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment and hyperparameters are tuned.
 
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
 
-## Result
+# Result
 
 
-## Future work
+# Future work
 - Distributed Distributional Deterministic Policy Gradients [[arxiv]](https://arxiv.org/abs/1804.08617)
+- Parameter Space Noise for Exploration [[arxiv]](https://arxiv.org/abs/1706.01905)
