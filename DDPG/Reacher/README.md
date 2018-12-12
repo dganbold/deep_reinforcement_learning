@@ -48,5 +48,6 @@ $ python train.py
 $ python test.py
 ```
 
-## Result
-"ToDo"
+# Result
+This environment is solved in 345 episodes by DDPG with hyperparameters. score history.
+See the detailed project report from [Report.md](./docs/Report.md) file.

@@ -1,7 +1,7 @@
 # Project 2: Continuous Control
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/10624937/43851024-320ba930-9aff-11e8-8493-ee547c6af349.gif" height="250px">
+    <img src="../../../assets/reacher_ddpg_test.gif" height="250px">
 </p>
 
 # Description
@@ -44,8 +44,36 @@ In this project, Agent is modified to interact with Unity's [Reacher](https://gi
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
 
-# Result
+### Attempt 1
+The best performance of certain parameter configuration will be reach 10 (average cumulative reward) over 400 episodes but
+environment is not solved yet.
+Detailed implementation of the hyperparameter tuning can be found in hyperparameter_tuning.py file.
 
+<p align="center">
+    <img src="hyperparameter_optimization.png" height="300">
+</p>
+
+### Attempt 2
+To use Ornstein-Uhlenbeck noise which sampled from Normal Distribution instead of Uniform in exploration.   
+Reference code from [https://github.com/floodsung/DDPG/blob/master/ou_noise.py]
+
+<p align="center">
+    <img src="ou_noise_modification.png" height="230">
+</p>
+
+### Attempt 3
+To use some weight decay in critic optimizer.
+
+<p align="center">
+    <img src="critic_optimizer_with_weight_decay.png" height="230">
+</p>
+
+# Result
+The environment is solved in 47 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).
+
+<p align="center">
+    <img src="../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.png" height="230">
+</p>
 
 # Future work
 - Distributed Distributional Deterministic Policy Gradients [[arxiv]](https://arxiv.org/abs/1804.08617)
