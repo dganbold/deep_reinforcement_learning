@@ -72,7 +72,7 @@ To use some weight decay in critic optimizer.
 The environment is solved in 47 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).
 
 <p align="center">
-    <img src="../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.png" height="320">
+    <img src="../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.png" height="350">
 </p>
 
 # Future work

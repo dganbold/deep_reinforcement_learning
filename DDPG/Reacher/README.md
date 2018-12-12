@@ -49,5 +49,9 @@ $ python test.py
 ```
 
 # Result
-This environment is solved in 345 episodes by DDPG with hyperparameters. score history.
+This environment is solved in 47 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).
 See the detailed project report from [Report.md](./docs/Report.md) file.
+
+<p align="center">
+    <img src="./scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.png" height="350">
+</p>
