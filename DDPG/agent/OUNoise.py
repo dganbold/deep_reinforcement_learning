@@ -1,31 +1,37 @@
 import numpy as np
-import random
-import copy
+import numpy.random as nr
 
 # -------------------------------------------------------------------- #
 # Ornstein-Uhlenbeck noise for exploration
+# https://github.com/floodsung/DDPG/blob/master/ou_noise.py
 # -------------------------------------------------------------------- #
 class OUNoise:
-    """Ornstein-Uhlenbeck process."""
-
-    def __init__(self, size, seed, mu=0., theta=0.15, sigma=0.2):
-        """Initialize parameters and noise process."""
-        self.mu = mu * np.ones(size)
+    """docstring for OUNoise"""
+    def __init__(self,action_dimension,mu=0, theta=0.15, sigma=0.2):
+        self.action_dimension = action_dimension
+        self.mu = mu
         self.theta = theta
         self.sigma = sigma
-        self.seed = random.seed(seed)
-        self.reset()
+        self.state = np.ones(self.action_dimension) * self.mu
 
     def reset(self):
-        """Reset the internal state (= noise) to mean (mu)."""
-        self.state = copy.copy(self.mu)
+        self.state = np.ones(self.action_dimension) * self.mu
 
     def sample(self):
-        """Update internal state and return it as a noise sample."""
         x = self.state
-        dx = self.theta * (self.mu - x) + self.sigma * np.array([random.random() for i in range(len(x))])
+        dx = self.theta * (self.mu - x) + self.sigma * nr.randn(len(x))
         self.state = x + dx
         return self.state
+
+if __name__ == '__main__':
+    ou = OUNoise(3)
+    states = []
+    for i in range(1000):
+        states.append(ou.sample())
+    import matplotlib.pyplot as plt
+
+    plt.plot(states)
+    plt.show()
 
 # -------------------------------------------------------------------- #
 # EOF
