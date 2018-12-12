@@ -16,12 +16,12 @@ HYPERPARAMS = {
         'env_name':             "Tennis",
         'stop_scores':          30.0,
         'scores_window_size':   100,
-        'train_episodes':       400,
+        'train_episodes':       3,
 
         # Replay buffer parameters
         'replay_size':          100000,             # replay buffer size
-        'replay_initial':       1000,               # replay buffer initialize
-        'batch_size':           128,                # minibatch size
+        'replay_initial':       32,                 # replay buffer initialize
+        'batch_size':           32,                 # minibatch size
 
         # Actor parameters
         'actor_input_size':     2,

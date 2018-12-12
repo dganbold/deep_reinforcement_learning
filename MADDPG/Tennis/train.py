@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../')
 from utils.misc import *
-from utilities import transpose_list
+#from utilities import transpose_list
 # Config
 from config.UnityML_Agent import *
 # Environment
@@ -33,7 +33,7 @@ print('Dimension of state space : ', state_size)
 agents = MultiAgent(number_of_agents=number_of_agents, state_size=state_size, action_size=action_size, param=params, seed=params['random_seed'])
 
 # Initialize replay buffer
-memory = ReplayBuffer(action_size, params['replay_size'], params['batch_size'], seed=params['random_seed'])
+memory = ReplayBuffer(params['replay_size'], params['batch_size'], seed=params['random_seed'])
 update_interval = params['update_interval']
 replay_start = params['replay_initial']
 
@@ -49,6 +49,11 @@ noise_amplitude_decay = params['noise_amplitude_decay']
 
 print('Hyperparameter values:')
 pprint.pprint(params)
+
+#log_path = os.getcwd()+"/log"
+#model_dir= os.getcwd()+"/model_dir"
+#os.makedirs(model_dir, exist_ok=True)
+#logger = SummaryWriter(log_dir=log_path)
 
 """ Training loop  """
 scores = []                                 # list containing scores from each episode
@@ -78,20 +83,20 @@ for i_episode in range(1, episodes+1):
         states = next_states                               # roll over states to next time step
 
         # Store experience
-        memory.push(states, actions, rewards, next_states, dones)
+        transitions = (states, actions, rewards, next_states, dones)
+        memory.push(transitions)
 
         # Update the Critics and Actors of all the agents
         step += 1
         if (step % update_interval) == 0 and len(memory) > replay_start:
             # Recall experiences (miniBatch)
             experiences = memory.recall()
+
             # Train agent
             agents.learn(experiences)
 
         # State transition
         states = next_states
-
-    break
 
     # Push to score list
     #scores_window.append(score)
