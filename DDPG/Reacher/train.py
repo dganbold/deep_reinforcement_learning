@@ -44,7 +44,7 @@ scores_window = deque(maxlen=params['scores_window_size'])   # last (window_size
 for i_episode in range(1, params['train_episodes']+1):
     # Reset the environment
     env_info = env.reset(train_mode=True)[brain_name]
-
+    agent.reset()
     # Capture the current state
     state = env_info.vector_observations[0]
 
@@ -113,7 +113,7 @@ ax = fig.add_subplot(111)
 episode = np.arange(len(scores))
 plt.plot(episode,df['average_scores'])
 plt.fill_between(episode,df['average_scores'].add(df['std']),df['average_scores'].sub(df['std']),alpha=0.3)
-plt.title(env_name)
+plt.title(params['env_name'])
 ax.legend([agent.name + ' [ Average scores ]'])
 plt.ylabel('Score')
 plt.xlabel('Episode')

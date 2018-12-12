@@ -31,8 +31,16 @@ print('Dimension of state space : ', state_size)
 # Initialize agent
 agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=0)
 
+# Filename string
+filename_format = "{:s}_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}"
+filename = filename_format.format(  params['env_name'],agent.name,      \
+                                    params['actor_learning_rate'],      \
+                                    params['critic_learning_rate'],     \
+                                    params['actor_hidden_layers'][0],   \
+                                    params['thau'],params['batch_size'])
+
 # Load the pre-trained network
-agent.import_network('models/%s_%s'% (agent.name,env_name))
+agent.import_network('./models/{:s}'.format(filename))
 
 # Define parameters for test
 episodes = 2                                       # maximum number of test episodes

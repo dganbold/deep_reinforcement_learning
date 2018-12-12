@@ -39,9 +39,9 @@ hyperscores = []
 
 def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch_size):
     # Set tunable parameters
-    params['actor_hidden_layers'] = [int(fc_units), int(fc_units)]
+    params['actor_hidden_layers']  = [int(fc_units), int(fc_units/2)]
     params['critic_hidden_layers'] = [int(fc_units), int(fc_units/2)]
-    params['actor_learning_rate'] = actor_learning_rate
+    params['actor_learning_rate']  = actor_learning_rate
     params['critic_learning_rate'] = critic_learning_rate
     params['thau'] = thau
     params['batch_size'] = int(batch_size)
@@ -65,6 +65,8 @@ def train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch
     for i_episode in range(1, params['train_episodes']+1):
         # Reset the environment
         env_info = env.reset(train_mode=True)[brain_name]
+        agent.reset()
+
         # Capture the current state
         state = env_info.vector_observations[0]
 
@@ -137,7 +139,7 @@ def objective(trial):
     actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [1e-4, 5e-4, 1e-3])
     critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [1e-4, 5e-4, 1e-3])
     fc_units = trial.suggest_categorical('fc_units', [64, 128, 256])
-    thau = trial.suggest_categorical('thau', [1e-3, 2e-3])
+    thau = 1e-3     #trial.suggest_categorical('thau', [1e-3, 2e-3])
     batch_size = trial.suggest_categorical('batch_size', [128, 256])
 
     return train_agent(actor_learning_rate, critic_learning_rate, fc_units, thau, batch_size)
