@@ -10,14 +10,16 @@ import torch.nn as nn
 from network import *
 from agent.OUNoise import OUNoise
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = 'cpu'
+
 # -------------------------------------------------------------------- #
 # DDPG
 # -------------------------------------------------------------------- #
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, param, seed):
+    def __init__(self, id, param, seed):
         """Initialize an Agent object.
 
         Params
@@ -26,6 +28,7 @@ class Agent():
             seed (int): random seed
         """
         self.name = 'DDPG'
+        self.id = torch.tensor([id]).to(device)
         self.seed = random.seed(seed)
 
         # Learning params
@@ -52,6 +55,11 @@ class Agent():
         # Noise process
         self.noise = OUNoise(param['actor_output_size'], seed)
 
+        # Track stats for tensorboard logging
+        self.critic_loss = 0
+        self.actor_loss = 0
+        self.noise_val = 0
+
         # Print model summary
         #print(self.Q_network)
 
@@ -68,62 +76,69 @@ class Agent():
         with torch.no_grad():
             action = self.actor_local(state).cpu().data.numpy()
         self.actor_local.train()
-        action += noise_amplitude*self.noise.sample()
+        self.noise_val = noise_amplitude*self.noise.sample()
+        action += self.noise_val
         return np.clip(action, -1, 1)
 
-    def target_act(self, state, noise_amplitude=0.0):
-        state = state.to(device)
-        action = self.target_actor(state) + noise_amplitude*self.noise.sample()
-        return action
+    #def target_act(self, state, noise_amplitude=0.0):
+    #    state = state.to(device)
+    #    action = self.actor_target(state) #+ noise_amplitude*self.noise.sample()
+    #    return action
 
     def reset(self):
         self.noise.reset()
 
-    def learn(self, experiences):
+
+    def learn(self, experiences, next_actions, predicted_actions):
         """Update policy and value parameters using given batch of experience tuples.
-        Q_targets = r + γ * critic_target(next_state, actor_target(next_state))
-        where:
-            actor_target(state) -> action
-            critic_target(state, action) -> Q-value
 
         Params
         ======
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples
-            gamma (float): discount factor
+            all_next_actions (list): each agent's next_action (as calculated by it's actor)
+            all_actions (list): each agent's action (as calculated by it's actor)
         """
         states, actions, rewards, next_states, dones = experiences
 
         # ---------------------------- update critic ---------------------------- #
         # Get predicted next-state actions and Q values from target models
-        actions_next = self.actor_target(next_states)
-        Q_targets_next = self.critic_target(next_states, actions_next)
+        self.critic_optimizer.zero_grad()
+        next_actions = torch.cat(next_actions, dim=1).to(device)
+        with torch.no_grad():
+            Q_targets_next = self.critic_target(next_states, next_actions)
         # Compute Q targets for current states (y_i)
-        Q_targets = rewards + (self.gamma * Q_targets_next * (1 - dones))
+        Q_targets = rewards.index_select(1, self.id) + (self.gamma * Q_targets_next * (1 - dones.index_select(1, self.id)))
         # Compute critic loss
         Q_expected = self.critic_local(states, actions)
         critic_loss = F.mse_loss(Q_expected, Q_targets)
+        self.critic_loss = critic_loss.item() # for tensorboard logging
         # Minimize the loss
-        self.critic_optimizer.zero_grad()
         critic_loss.backward()
-        #torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
+        #torch.nn.utils.clip_grad_norm_(agent.critic.parameters(), 0.5)
         self.critic_optimizer.step()
         # ---------------------------- update actor ---------------------------- #
         # Compute actor loss
-        actions_pred = self.actor_local(states)
-        actor_loss = -self.critic_local(states, actions_pred).mean()
-        # Minimize the loss
         self.actor_optimizer.zero_grad()
+        # Detach actions from other agents
+        # to save computation saves some time for computing derivative
+        predicted_actions = [actions if i == self.id else actions.detach() for i, actions in enumerate(predicted_actions)]
+        predicted_actions = torch.cat(predicted_actions, dim=1).to(device)
+        #actions_pred = self.actor_local(states)
+        actor_loss = -self.critic_local(states, predicted_actions).mean()
+        self.actor_loss = actor_loss.item() # for tensorboard logging
+        # Minimize the loss
         actor_loss.backward()
+        #torch.nn.utils.clip_grad_norm_(agent.actor.parameters(),0.5)
         self.actor_optimizer.step()
         # ----------------------- update target networks ----------------------- #
-        self.critic_soft_update()
-        self.actor_soft_update()
-
-    def actor_soft_update(self):
+        self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
         self.soft_update(self.actor_local, self.actor_target, self.actor_thau)
 
-    def critic_soft_update(self):
-        self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
+    #def actor_soft_update(self):
+    #    self.soft_update(self.actor_local, self.actor_target, self.actor_thau)
+
+    #def critic_soft_update(self):
+    #    self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
 
     # https://github.com/ikostrikov/pytorch-ddpg-naf/blob/master/ddpg.py#L11
     def soft_update(self, source, target, tau):

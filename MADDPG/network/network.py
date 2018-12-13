@@ -14,21 +14,20 @@ def hidden_init(layer):
 class Actor(nn.Module):
     """Actor (Policy) Model."""
 
-    def __init__(self, state_size, action_size, hidden_layers, seed):
+    def __init__(self, input_size, output_size, hidden_layers, seed):
         """Initialize parameters and build model.
         Params
         ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
+            input_size (int): Dimension of each state
+            output_size (int): Dimension of each action
+            hidden_layers (int): Number of nodes and hidden layers
             seed (int): Random seed
-            fc1_units (int): Number of nodes in first hidden layer
-            fc2_units (int): Number of nodes in second hidden layer
         """
         super(Actor, self).__init__()
         self.seed = torch.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, hidden_layers[0])
+        self.fc1 = nn.Linear(input_size, hidden_layers[0])
         self.fc2 = nn.Linear(hidden_layers[0], hidden_layers[1])
-        self.fc3 = nn.Linear(hidden_layers[1], action_size)
+        self.fc3 = nn.Linear(hidden_layers[1], output_size)
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -36,29 +35,29 @@ class Actor(nn.Module):
         self.fc2.weight.data.uniform_(*hidden_init(self.fc2))
         self.fc3.weight.data.uniform_(-3e-3, 3e-3)
 
-    def forward(self, state):
+    def forward(self, input):
         """Build an actor (policy) network that maps states -> actions."""
-        x = F.relu(self.fc1(state))
+        x = F.relu(self.fc1(input))
         x = F.relu(self.fc2(x))
         return F.tanh(self.fc3(x))
 
 class Critic(nn.Module):
     """Critic (Value) Model."""
 
-    def __init__(self, state_size, action_size, hidden_layers, seed):
+    def __init__(self, input_size, output_size, hidden_layers, seed):
         """Initialize parameters and build model.
         Params
         ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
-            hidden_layers
+            input_size (int): Dimension of each state
+            output_size (int): Dimension of each action
+            hidden_layers (int): Number of nodes and hidden layers
             seed (int): Random seed
         """
         super(Critic, self).__init__()
         self.seed = torch.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, hidden_layers[0])
-        self.fc2 = nn.Linear(hidden_layers[0]+action_size, hidden_layers[1])
-        self.fc3 = nn.Linear(hidden_layers[1], 1)
+        self.fc1 = nn.Linear(input_size, hidden_layers[0])
+        self.fc2 = nn.Linear(hidden_layers[0], hidden_layers[1])
+        self.fc3 = nn.Linear(hidden_layers[1], output_size)
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -66,10 +65,10 @@ class Critic(nn.Module):
         self.fc2.weight.data.uniform_(*hidden_init(self.fc2))
         self.fc3.weight.data.uniform_(-3e-3, 3e-3)
 
-    def forward(self, state, action):
+    def forward(self, states, actions):
         """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
-        xs = F.relu(self.fc1(state))
-        x = torch.cat((xs, action), dim=1)
+        sa = torch.cat((states, actions), dim=1)
+        x = F.relu(self.fc1(sa))
         x = F.relu(self.fc2(x))
         return self.fc3(x)
 

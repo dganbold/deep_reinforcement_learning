@@ -12,7 +12,7 @@ from agent.ExperienceReplay import ReplayBuffer
 
 # Initialize environment object
 params = HYPERPARAMS['Tennis']
-env = UnityEnvironment(file_name='{:s}_Linux/{:s}.x86'.format(params['env_name'],params['env_name']))
+env = UnityEnvironment(file_name='{:s}_Linux/{:s}.x86'.format(params['env_name'],params['env_name']),no_graphics=True)
 
 # Get the default brain
 brain_name = env.brain_names[0]
@@ -56,7 +56,7 @@ pprint.pprint(params)
 #logger = SummaryWriter(log_dir=log_path)
 
 """ Training loop  """
-scores = []                                 # list containing scores from each episode
+scores_history = []                                # list containing scores from each episode
 scores_window = deque(maxlen=scores_window_size)   # last (window_size) scores
 for i_episode in range(1, episodes+1):
     # Reset the environment
@@ -72,7 +72,6 @@ for i_episode in range(1, episodes+1):
     while not np.any(dones):
         # Get actions from all agents
         actions = agents.act(states, noise_amplitude=noise_amplitude)
-        noise_amplitude *= noise_amplitude_decay
 
         # Take action and get rewards and new state
         env_info = env.step(actions)[brain_name]           # send all actions to tne environment
@@ -83,37 +82,37 @@ for i_episode in range(1, episodes+1):
         states = next_states                               # roll over states to next time step
 
         # Store experience
-        transitions = (states, actions, rewards, next_states, dones)
-        memory.push(transitions)
+        memory.push(states, actions, rewards, next_states, dones)
 
         # Update the Critics and Actors of all the agents
         step += 1
         if (step % update_interval) == 0 and len(memory) > replay_start:
-            # Recall experiences (miniBatch)
-            experiences = memory.recall()
-
-            # Train agent
-            agents.learn(experiences)
+            for agent_id in range(number_of_agents):
+                # Recall experiences (miniBatch)
+                experiences = memory.recall()
+                # Train agent
+                agents.learn(experiences,agent_id)
 
         # State transition
         states = next_states
 
     # Push to score list
-    #scores_window.append(score)
-    #scores.append([score, np.mean(scores_window), np.std(scores_window)])
-    print('Score (max over agents) from episode {}: {}'.format(i_episode, np.max(scores)))
-
+    scores_window.append(scores)
+    scores_history.append([scores, np.mean(scores_window,axis=0), np.std(scores_window,axis=0)])
+    #print('Score (max over agents) from episode {}: {}'.format(i_episode, np.max(scores)))
     # Print episode summary
-    #print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon), end="")
+    print('\r#TRAIN Episode:{:4d}, Score:{}'.format(i_episode, scores))
+    #print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude))
+    #print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude), end="")
     #if i_episode % 100 == 0:
-    #    print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, score, np.mean(scores_window), epsilon))
-    #if np.mean(scores_window)>=13.0:
+    #    print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude))
+    if np.mean(scores_window) >= params['stop_scores']:
     #    print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
     #    agent.export_network('models/%s_%s'% (agent.name,env_name))
-    #    break
+        break
 
     # Update exploration
-    #epsilon = max(epsilon_floor, epsilon*epsilon_decay)
+    noise_amplitude = max(noise_amplitude_final, noise_amplitude*noise_amplitude_decay)
 """ End of the Training """
 
 # Export scores to csv file
