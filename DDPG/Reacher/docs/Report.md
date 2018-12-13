@@ -58,20 +58,20 @@ To use Ornstein-Uhlenbeck noise which sampled from Normal Distribution instead o
 Reference code from [https://github.com/floodsung/DDPG/blob/master/ou_noise.py]
 
 <p align="center">
-    <img src="ou_noise_modification.png" height="230">
+    <img src="ou_noise_modification.png" height="260">
 </p>
 
 ### Attempt 3
 To use some weight decay in critic optimizer.
 
 <p align="center">
-    <img src="critic_optimizer_with_weight_decay.png" height="230">
+    <img src="critic_optimizer_with_weight_decay.png" height="260">
 </p>
 
 # Result
-The environment is solved in 47 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).
+The environment is solved in 147 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).
 <p align="center">
-    <img src="../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.png" height="350">
+    <img src="best_score_history.png" height="260">
 </p>
 
 # Future work
