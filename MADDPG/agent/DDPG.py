@@ -10,8 +10,8 @@ import torch.nn as nn
 from network import *
 from agent.OUNoise import OUNoise
 
-#device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-device = 'cpu'
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+#device = 'cpu'
 
 # -------------------------------------------------------------------- #
 # DDPG
@@ -35,13 +35,13 @@ class Agent():
         self.gamma = param['gamma']
 
         # Actor Network
-        self.actor_local = Actor(param['actor_input_size'], param['actor_output_size'], param['actor_hidden_layers'], seed).to(device)
-        self.actor_target = Actor(param['actor_input_size'], param['actor_output_size'], param['actor_hidden_layers'], seed).to(device)
+        self.actor_local = Actor(param['actor_state_size'], param['actor_action_size'], param['actor_hidden_layers'], seed).to(device)
+        self.actor_target = Actor(param['actor_state_size'], param['actor_action_size'], param['actor_hidden_layers'], seed).to(device)
         self.actor_optimizer = optim.Adam(self.actor_local.parameters(), lr=param['actor_learning_rate'], weight_decay=param['actor_weight_decay'])
 
         # Critic Network
-        self.critic_local = Critic(param['critic_input_size'], param['critic_output_size'], param['critic_hidden_layers'], seed).to(device)
-        self.critic_target = Critic(param['critic_input_size'], param['critic_output_size'], param['critic_hidden_layers'], seed).to(device)
+        self.critic_local = Critic(param['critic_state_size'], param['critic_action_size'], param['critic_hidden_layers'], seed).to(device)
+        self.critic_target = Critic(param['critic_state_size'], param['critic_action_size'], param['critic_hidden_layers'], seed).to(device)
         self.critic_optimizer = optim.Adam(self.critic_local.parameters(), lr=param['critic_learning_rate'], weight_decay=param['critic_weight_decay'])
 
         # initialize targets same as original networks
@@ -53,7 +53,7 @@ class Agent():
         self.critic_thau = param['critic_thau']
 
         # Noise process
-        self.noise = OUNoise(param['actor_output_size'], seed)
+        self.noise = OUNoise(param['actor_action_size'], seed)
 
         # Track stats for tensorboard logging
         self.critic_loss = 0
@@ -80,14 +80,8 @@ class Agent():
         action += self.noise_val
         return np.clip(action, -1, 1)
 
-    #def target_act(self, state, noise_amplitude=0.0):
-    #    state = state.to(device)
-    #    action = self.actor_target(state) #+ noise_amplitude*self.noise.sample()
-    #    return action
-
     def reset(self):
         self.noise.reset()
-
 
     def learn(self, experiences, next_actions, predicted_actions):
         """Update policy and value parameters using given batch of experience tuples.
@@ -95,8 +89,8 @@ class Agent():
         Params
         ======
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples
-            all_next_actions (list): each agent's next_action (as calculated by it's actor)
-            all_actions (list): each agent's action (as calculated by it's actor)
+            next_actions (list): each agent's next_action (as calculated by it's actor)
+            predicted_actions (list): each agent's action (as calculated by it's actor)
         """
         states, actions, rewards, next_states, dones = experiences
 
@@ -133,12 +127,7 @@ class Agent():
         # ----------------------- update target networks ----------------------- #
         self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
         self.soft_update(self.actor_local, self.actor_target, self.actor_thau)
-
-    #def actor_soft_update(self):
-    #    self.soft_update(self.actor_local, self.actor_target, self.actor_thau)
-
-    #def critic_soft_update(self):
-    #    self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
+        
 
     # https://github.com/ikostrikov/pytorch-ddpg-naf/blob/master/ddpg.py#L11
     def soft_update(self, source, target, tau):
