@@ -56,12 +56,13 @@ pprint.pprint(params)
 #logger = SummaryWriter(log_dir=log_path)
 
 """ Training loop  """
+filename_format = "{:s}_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}"
 scores_history = []                                # list containing scores from each episode
 scores_window = deque(maxlen=scores_window_size)   # last (window_size) scores
 for i_episode in range(1, episodes+1):
     # Reset the environment
     env_info = env.reset(train_mode=True)[brain_name]
-
+    agents.reset()
     # Capture the current state
     states = env_info.vector_observations
     dones = env_info.local_done
@@ -79,7 +80,6 @@ for i_episode in range(1, episodes+1):
         rewards = env_info.rewards                         # get reward (for each agent)
         dones = env_info.local_done                        # see if episode finished
         scores += env_info.rewards                         # update the score (for each agent)
-        states = next_states                               # roll over states to next time step
 
         # Store experience
         memory.push(states, actions, rewards, next_states, dones)
@@ -97,40 +97,47 @@ for i_episode in range(1, episodes+1):
         states = next_states
 
     # Push to score list
-    scores_window.append(scores)
-    scores_history.append([scores, np.mean(scores_window,axis=0), np.std(scores_window,axis=0)])
-    #print('Score (max over agents) from episode {}: {}'.format(i_episode, np.max(scores)))
+    scores_window.append(np.max(scores))
+    scores_history.append([scores, np.max(scores), np.mean(scores_window,axis=0), np.std(scores_window,axis=0)])
+
     # Print episode summary
-    print('\r#TRAIN Episode:{:4d}, Score:{}'.format(i_episode, scores))
-    #print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude))
-    #print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude), end="")
-    #if i_episode % 100 == 0:
-    #    print('\r#TRAIN Episode:{}, Score (max over agents):{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude))
+    print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}, Steps:{}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude, step), end="")
+    if i_episode % 100 == 0:
+        print('\r#TRAIN Episode:{}, Score:{:.2f}, Average Score:{:.2f}, Exploration:{:1.4f}, Steps:{}'.format(i_episode, np.max(scores), np.mean(scores_window), noise_amplitude, step))
     if np.mean(scores_window) >= params['stop_scores']:
-    #    print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
-    #    agent.export_network('models/%s_%s'% (agent.name,env_name))
+        print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, np.mean(scores_window)))
         break
 
     # Update exploration
     noise_amplitude = max(noise_amplitude_final, noise_amplitude*noise_amplitude_decay)
 """ End of the Training """
 
+# Filename string
+filename = filename_format.format(  params['env_name'],'MADDPG',        \
+                                    params['actor_learning_rate'],      \
+                                    params['critic_learning_rate'],     \
+                                    params['actor_hidden_layers'][0],   \
+                                    params['actor_thau'],params['batch_size'])
+
+# Export trained agent's parameters
+agents.export_network('./models/{:s}'.format(filename))
+
 # Export scores to csv file
-#df = pandas.DataFrame(scores,columns=['scores','average_scores','std'])
-#df.to_csv('scores/%s_%s_batch_%d_trained_%d_episodes.csv'% (agent.name,env_name,params['batch_size'],i_episode), sep=',',index=False)
+df = pandas.DataFrame(scores_history,columns=['scores','max_score','average_scores','std'])
+df.to_csv('./scores/{:s}.csv'.format(filename), sep=',',index=False)
 
 # Plot the scores
-#fig = plt.figure(num=None,figsize=(10, 5))
-#ax = fig.add_subplot(111)
-#episode = np.arange(len(scores))
-#plt.plot(episode,df['average_scores'])
-#plt.fill_between(episode,df['average_scores'].add(df['std']),df['average_scores'].sub(df['std']),alpha=0.3)
-#plt.title(env_name)
-#ax.legend([agent.name + ' [ Average scores ]'])
-#plt.ylabel('Score')
-#plt.xlabel('Episode')
-#plt.show()
-#fig.savefig('scores/%s_%s_batch_%d_trained_%d_episodes.png'% (agent.name,env_name,params['batch_size'],i_episode))   # save the figure to file
+fig = plt.figure(num=None,figsize=(10, 5))
+ax = fig.add_subplot(111)
+episode = np.arange(len(scores_history))
+plt.plot(episode,df['average_scores'])
+plt.fill_between(episode,df['average_scores'].add(df['std']),df['average_scores'].sub(df['std']),alpha=0.3)
+plt.title(params['env_name'])
+ax.legend(['MADDPG' + ' [ Average scores ]'])
+plt.ylabel('Score')
+plt.xlabel('Episode')
+plt.show()
+fig.savefig('scores/{:s}.png'.format(filename))   # save the figure to file
 
 # Close environment
 env.close()
