@@ -7,7 +7,8 @@
 ## Description
 In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
 
-- Continuous control with deep reinforcement learning[[arxiv]](https://arxiv.org/abs/1509.02971)
+- Continuous control with deep reinforcement learning [[arxiv]](https://arxiv.org/abs/1509.02971)
+- Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments [[arxiv]](https://arxiv.org/abs/1706.02275)
 - Multi-Agent Reinforcement Learning [[arxiv]](https://arxiv.org/abs/1807.09427)
 
 
@@ -35,7 +36,7 @@ The multi-agent extention of MDPs called partially observable Markov games
 A Markov game for N agents defined by a set of states describing the possible configurations of all agents, a set of action and a set of observations for each agent. In the multi-agent case, the state transitions and rewards are the result of the joint action of all the agents.
 
 <p align="center">
-    <img src="../../../assets/markov_game.png" height="280px">
+    <img src="../../../assets/markov_game.png" height="300px">
 </p>
 <p align="center">
     <em>The multi-agent environment interaction.</em>
@@ -53,9 +54,9 @@ The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach
 
 
 ## Implementation
-The baseline code from [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem.
+The baseline code from DDPG Implementation [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem.
 
-In this project, single-agent DDPG algorithm is extended to multi-agent DDPG for Unity's Tennis environment [[Github]](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis), [[Youtube]](https://www.youtube.com/watch?v=RDaIh7JX6RI&feature=youtu.be) and hyperparameters are tuned.
+In this project, single-agent DDPG algorithm is extended to multi-agent DDPG for [Unity's Tennis environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) and hyperparameters are tuned.
 
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
@@ -64,4 +65,5 @@ Bayesian Optimization based software framework [Optuna](https://optuna.org/) is 
 
 
 ## Future work
-- Distributed Distributional Deterministic Policy Gradients [[arxiv]](https://arxiv.org/abs/1804.08617)
+- To apply MADDPG agent to solve [Unity's Soccer Twos environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#soccer-twos),
+[[Youtube link]](https://www.youtube.com/watch?v=Hg3nmYD3DjQ&feature=youtu.be).
