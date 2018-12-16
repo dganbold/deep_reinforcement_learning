@@ -5,7 +5,7 @@
 </p>
 
 ## Description
-In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
+In this project, implemented Multi-Agent Deep Deterministic Policy Gradient (MADDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to multi-agent continuous control environment, where the goal is each agent is to keep the ball in play.
 
 - Continuous control with deep reinforcement learning [[arxiv]](https://arxiv.org/abs/1509.02971)
 - Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments [[arxiv]](https://arxiv.org/abs/1706.02275)
@@ -40,30 +40,39 @@ A Markov game for N agents defined by a set of states describing the possible co
     <em>The multi-agent environment interaction.</em>
 </p>
 
-## Methods
-### Single-Agent Actor Critic
-The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
-
-<p align="center">
-    <img src="../../../assets/ddpg.png" height="200px">
-</p>
-<p align="center">
-    <em>Overview of single-agent DDPG.</em>
-</p>
+The most simple approach to learning in multi-agent setting is
+to use decentralized agents which independently learning policy or action-value function. However both methods does not perform well in this context.
+One issue is that agent’s policy changes during training, resulting in a non-stationary environment and preventing the naive application of experience replay according to the [[Multi-Agent Actor-Critic for Mixed Cooperative-Competitive]](https://arxiv.org/abs/1706.02275).
 
 ### Multi-Agent Actor Critic
+Recent approaches to solve the learning problem in multi-agent settings is ``Decentralized Actor, Centralized Critic``. The core idea behind this paradigm is centralized critic provides an indirect observation of the complete global state to each of the actors.
+
+### MADDPG algorithm
+[Multi-Agent Deep Deterministic Policy Gradient (MADDPG)](https://arxiv.org/abs/1706.02275) is ``Decentralized Actor, Centralized Critic`` approach adapting the [DDPG](https://arxiv.org/abs/1509.02971) to use in multi-agent setting. The centralized action-value function that takes as input the actions and observations of all agents and the decentralized actor acts based on only its own observation. <br />
+More concretely, two agents case of the MADDPG is illustrated below:
 
 <p align="center">
-    <img src="../../../assets/maddpg.png" height="500px">
+    <img src="../../../assets/maddpg.png" height="360px">
 </p>
 <p align="center">
-    <em>Overview of multi-agent DDPG.</em>
+    <em>Overview of Two-Agent Deep Deterministic Policy Gradient (MADDPG).</em>
 </p>
+
+Some other interesting aspect of the MADDPG is all agents shares a replay buffer which holds
+all observations, rewards and joint actions. <br />
+ Below image illustrates full MADDPG algorithm:
+
+ <p align="center">
+     <img src="../../../assets/maddpg_algorithm.png" height="460px">
+ </p>
 
 ## Implementation
-The baseline code from DDPG Implementation [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem.
-
-In this project, single-agent DDPG algorithm is extended to multi-agent DDPG for [Unity's Tennis environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) and hyperparameters are tuned.
+The baseline code from DDPG Implementation [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem. <br />
+In this project, single-agent DDPG algorithm is extended to multi-agent DDPG for [Unity's Tennis environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis) and hyperparameters are tuned. <br />
+Major changes in DDPG agent implementation are:
+* To use a shared replay buffer between agents
+* Each agent's critic takes as input the full state observation and policies of other agents
+* Gain scheduling of action space noise
 
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
