@@ -11,8 +11,6 @@ In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm
 - Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments [[arxiv]](https://arxiv.org/abs/1706.02275)
 - Multi-Agent Reinforcement Learning [[arxiv]](https://arxiv.org/abs/1807.09427)
 
-
-
 ## Environment
 In this environment, two agents control rackets to bounce a ball over a net. If an agent hits the ball over the net, it receives a reward of +0.1.  If an agent lets a ball hit the ground or hits the ball out of bounds, it receives a reward of -0.01.  Thus, the goal of each agent is to keep the ball in play.
 
@@ -42,16 +40,25 @@ A Markov game for N agents defined by a set of states describing the possible co
     <em>The multi-agent environment interaction.</em>
 </p>
 
-## Method
-### DDPG algorithm
+## Methods
+### Single-Agent Actor Critic
 The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
 
 <p align="center">
     <img src="../../../assets/ddpg.png" height="200px">
 </p>
+<p align="center">
+    <em>Overview of single-agent DDPG.</em>
+</p>
 
-### MADDPG algorithm
+### Multi-Agent Actor Critic
 
+<p align="center">
+    <img src="../../../assets/maddpg.png" height="500px">
+</p>
+<p align="center">
+    <em>Overview of multi-agent DDPG.</em>
+</p>
 
 ## Implementation
 The baseline code from DDPG Implementation [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem.
