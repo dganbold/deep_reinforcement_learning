@@ -7,33 +7,55 @@
 ## Description
 In this project, implemented Deep Deterministic Policy Gradient (DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
 
-- [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
-- [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)
+- Continuous control with deep reinforcement learning[[arxiv]](https://arxiv.org/abs/1509.02971)
+- Multi-Agent Reinforcement Learning [[arxiv]](https://arxiv.org/abs/1807.09427)
+
+
+
+## Environment
+In this environment, two agents control rackets to bounce a ball over a net. If an agent hits the ball over the net, it receives a reward of +0.1.  If an agent lets a ball hit the ground or hits the ball out of bounds, it receives a reward of -0.01.  Thus, the goal of each agent is to keep the ball in play.
+
+The observation space consists of 8 variables corresponding to the position and velocity of the ball and racket. Each agent receives its own, local observation.  Two continuous actions are available, corresponding to movement toward (or away from) the net, and jumping.
+
+The task is episodic, and in order to solve the environment, agents must get an average score of +0.5 (over 100 consecutive episodes, after taking the maximum over both agents).
 
 ## Background
-Policy-based methods are well-suited for continuous action spaces but it has several drawbacks suck as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
+The formal model of single-agent RL is the Markov decision process (MDP).
+The agent selects actions and the environment responds by giving a reward and new state. A canonical view of the this interaction between agent and environment is shown below.
 
 <p align="center">
-    <img src="../../../assets/actor_critic.png" height="220px">
+    <img src="../../../assets/agent_environment_interaction.png" height="170px">
+</p>
+<p align="center">
+    <em>The agent-environment interaction in reinforcement learning. (Source: Sutton and Barto, 2017)</em>
 </p>
 
-## DDPG algorithm
+The multi-agent extention of MDPs called partially observable Markov games
+[[Markov games as a framework for multi-agent reinforcement learning]](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwjYwpTgnaLfAhXNc94KHUVGA5YQFjAAegQIBhAC&url=https%3A%2F%2Fwww2.cs.duke.edu%2Fcourses%2Fspring07%2Fcps296.3%2Flittman94markov.pdf&usg=AOvVaw3Z8842P_QFvL9BePhnSKUY) by Littman, Michael L. ICML, 1994.<br />
+A Markov game for N agents defined by a set of states describing the possible configurations of all agents, a set of action and a set of observations for each agent. In the multi-agent case, the state transitions and rewards are the result of the joint action of all the agents.
+
+<p align="center">
+    <img src="../../../assets/markov_game.png" height="280px">
+</p>
+<p align="center">
+    <em>The multi-agent environment interaction.</em>
+</p>
+
+## Method
+### DDPG algorithm
 The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach which combination of Policy learning method and Deep Q-Network(DQN). It maintains a parameterized actor function which specifies the current policy by deterministically mapping states to a specific action. The critic is learned using the Bellman equation as in Q-learning which evaluates the policy.
 
 <p align="center">
     <img src="../../../assets/ddpg.png" height="200px">
 </p>
 
-Some other interesting aspects of the DDPG are shown below.
+### MADDPG algorithm
 
-<p align="center">
-    <img src="../../../assets/ddpg_algorithm.png" height="480px">
-</p>
 
 ## Implementation
-The baseline code from [Deep Reinforcement Learning nanodegree course's GitHub](https://github.com/udacity/deep-reinforcement-learning/tree/master/ddpg-bipedal) which intended for solving OpenAI gym's BipedalWalker-v2 problem.
+The baseline code from [[Github]](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG) which intended for solving Unity's Reacher problem.
 
-In this project, Agent is modified to interact with Unity's [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment and hyperparameters are tuned.
+In this project, single-agent DDPG algorithm is extended to multi-agent DDPG for Unity's Tennis environment [[Github]](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis), [[Youtube]](https://www.youtube.com/watch?v=RDaIh7JX6RI&feature=youtu.be) and hyperparameters are tuned.
 
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
