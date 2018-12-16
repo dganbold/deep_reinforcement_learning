@@ -1,7 +1,7 @@
 # Deep Deterministic Policy Gradient (DDPG)
 
 ## Description
-In this project, implemented Deep Deterministic Policy Gradient(DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment, where the goal is agent is to maintain its position at the target location for as many time steps as possible.
+In this project, implemented Deep Deterministic Policy Gradient(DDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to continuous control environment.
 
 - [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
 - [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)
@@ -21,6 +21,19 @@ The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach
 </p>
 
 ## Result
+<p align="center">
+    <em>Unity Reacher environment, DDPG Learning curve.</em>
+</p>
+<p align="center">
+    <img src="./Reacher/docs/best_score_history.png" height="260">
+</p>
+
+<p align="center">
+    <em>Unity Reacher environment, trained DDPG.</em>
+</p>
+<p align="center">
+    <img src="../assets/reacher_ddpg_test.gif" height="250px">
+</p>
 
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
