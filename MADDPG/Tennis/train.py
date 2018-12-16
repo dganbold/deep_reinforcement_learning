@@ -50,11 +50,6 @@ noise_amplitude_decay = params['noise_amplitude_decay']
 print('Hyperparameter values:')
 pprint.pprint(params)
 
-#log_path = os.getcwd()+"/log"
-#model_dir= os.getcwd()+"/model_dir"
-#os.makedirs(model_dir, exist_ok=True)
-#logger = SummaryWriter(log_dir=log_path)
-
 """ Training loop  """
 filename_format = "{:s}_{:s}_{:.1E}_{:.1E}_{:d}_{:.1E}_{:d}"
 scores_history = []                                # list containing scores from each episode
