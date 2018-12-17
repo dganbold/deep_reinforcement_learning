@@ -71,10 +71,24 @@ all observations, rewards and joint actions. <br />
 
 ## Result
 
+<p align="center">
+    <em>Unity Reacher environment, MADDPG Learning curve.</em>
+</p>
+<p align="center">
+    <img src="./Tennis/docs/tennis_maddpg_learning_curve.png" height="220">
+</p>
+
+<p align="center">
+    <em>Unity Reacher environment, trained MADDPG.</em>
+</p>
+<p align="center">
+    <img src="../assets/tennis_maddpg_test.gif" height="300px">
+</p>
+
 ## Supported environments
 
 ### Unity
-- [`Tennis`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/MADDPG/Tennis) with MADDPG | solved in 600 episodes
+- [`Tennis`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/MADDPG/Tennis) with MADDPG | solved in 427 episodes
 
 ## Usage
 
