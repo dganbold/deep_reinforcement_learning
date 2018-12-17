@@ -1,4 +1,4 @@
-# Multi-Agent Deep Deterministic Policy Gradient (MADDPG)
+# Multi-Agent Deep Deterministic Policy Gradient
 
 ## Description
 In this project, implemented Multi-Agent Deep Deterministic Policy Gradient (MADDPG) algorithm based on following papers with [PyTorch](https://www.pytorch.org/) and applied to multi-agent continuous control environment.
@@ -57,6 +57,21 @@ all observations, rewards and joint actions. <br />
 
  ## Result
 
+ <p align="center">
+     <em>Unity Reacher environment, MADDPG Learning curve.</em>
+ </p>
+ <p align="center">
+     <img src="./Tennis/docs/tennis_maddpg_learning_curve.png" height="260">
+ </p>
+
+ <p align="center">
+     <em>Unity Reacher environment, trained MADDPG.</em>
+ </p>
+ <p align="center">
+     <img src="../assets/tennis_maddpg_test.gif" height="300px">
+ </p>
+
+
  ## Dependencies
  - [Conda](https://conda.io/docs/user-guide/install/index.html)
  - Python 3.6
@@ -68,22 +83,6 @@ all observations, rewards and joint actions. <br />
  - [SciPy](https://www.scipy.org/)
 
  If you want to run the code in this repository, check this [instructions](https://github.com/dganbold/deep_reinforcement_learning).
-
-## Result
-
-<p align="center">
-    <em>Unity Reacher environment, MADDPG Learning curve.</em>
-</p>
-<p align="center">
-    <img src="./Tennis/docs/tennis_maddpg_learning_curve.png" height="220">
-</p>
-
-<p align="center">
-    <em>Unity Reacher environment, trained MADDPG.</em>
-</p>
-<p align="center">
-    <img src="../assets/tennis_maddpg_test.gif" height="300px">
-</p>
 
 ## Supported environments
 
