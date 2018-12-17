@@ -5,12 +5,12 @@ HYPERPARAMS = {
     'Tennis': {
         # Global parameters
         'random_seed':          0,                  # Random seed
-        'update_interval':      1,                  # Freeze the Agent for the update_interval
+        'update_interval':      2,                  # Freeze the Agent for the update_interval
 
         # Exploration parameters
         'noise_amplitude_start': 5.0,               # starting value of noise_amplitude
         'noise_amplitude_final': 0.1,               # minimum value of noise_amplitude
-        'noise_amplitude_decay': 0.995,             # factor for decreasing noise_amplitude
+        'noise_amplitude_decay': 0.994,             # factor for decreasing noise_amplitude
 
         # Environment parameters
         'env_name':             "Tennis",
@@ -20,8 +20,8 @@ HYPERPARAMS = {
 
         # Replay buffer parameters
         'replay_size':          1000000,            # replay buffer size
-        'replay_initial':       128,                # replay buffer initialize
-        'batch_size':           128,                # minibatch size
+        'replay_initial':       1000,               # replay buffer initialize
+        'batch_size':           256,                # minibatch size
 
         # Actor parameters
         'actor_state_size':     0,
