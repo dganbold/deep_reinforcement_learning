@@ -58,14 +58,14 @@ all observations, rewards and joint actions. <br />
  ## Result
 
  <p align="center">
-     <em>Unity Reacher environment, MADDPG Learning curve.</em>
+     <em>Unity Tennis environment, MADDPG Learning curve.</em>
  </p>
  <p align="center">
      <img src="./Tennis/docs/tennis_maddpg_learning_curve.png" height="260">
  </p>
 
  <p align="center">
-     <em>Unity Reacher environment, trained MADDPG.</em>
+     <em>Unity Tennis environment, trained MADDPG.</em>
  </p>
  <p align="center">
      <img src="../assets/tennis_maddpg_test.gif" height="300px">
