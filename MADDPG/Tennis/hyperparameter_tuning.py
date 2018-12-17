@@ -12,6 +12,8 @@ from unityagents import UnityEnvironment
 # Agent
 from agent.MADDPG import MultiAgent
 from agent.ExperienceReplay import ReplayBuffer
+# Hyperparameter optimizer
+import optuna
 
 # Initialize environment object
 params = HYPERPARAMS['Tennis']
@@ -118,42 +120,54 @@ def train_agent():
     print('\n')
 
     # Filename string
-    filename = filemeta.format( params['env_name'],agent.name,      \
-                                params['actor_learning_rate'],      \
-                                params['critic_learning_rate'],     \
-                                fc_units,params['actor_thau'],      \
-                                params['batch_size'], i_episode-100)
+    filename = filename_format.format(  params['env_name'],'MADDPG',        \
+                                        params['actor_learning_rate'],      \
+                                        params['critic_learning_rate'],     \
+                                        params['actor_hidden_layers'][0],   \
+                                        params['actor_thau'],params['batch_size'],i_episode-100)
+
+    # Export trained agent's parameters
     agents.export_network('./models/{:s}'.format(filename))
     # Export scores to csv file
     df = pandas.DataFrame(scores_history,columns=['scores','average_scores','std'])
     df.to_csv('./scores/{:s}.csv'.format(filename), sep=',',index=False)
 
-    hyperscores.append([params['actor_learning_rate'], params['critic_learning_rate'], params['actor_hidden_layers'][0], params['actor_thau'], params['batch_size'], np.mean(scores_window), i_episode-params['scores_window_size']])
-    log_df = pandas.DataFrame(hyperscores,columns=['actor_learning_rate', 'critic_learning_rate', 'fc_units', 'actor_thau', 'batch_size', 'i_episode'])
+    hyperscores.append([[value for param, value in params.items()], np.mean(scores_window), i_episode])
+    log_df = pandas.DataFrame(hyperscores,columns=[[param for param, value in params.items()], 'scores', 'trained_episodes'])
+
     log_df.to_csv('scores/{:s}.csv'.format(log_filename))
 
     return (params['stop_scores']-np.mean(scores_window))
 
 def objective(trial):
     # Set tunable parameters
-    fc_units = trial.suggest_categorical('fc_units', [64, 128, 256])
+    fc_units = trial.suggest_categorical('fc_units', [64, 128, 256, 512])
     params['actor_hidden_layers']  = [int(fc_units), int(fc_units/2)]
     params['critic_hidden_layers'] = [int(fc_units), int(fc_units/2)]
 
-    actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [1e-4, 5e-4, 1e-3])
-    critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [1e-4, 5e-4, 1e-3])
+    actor_learning_rate = trial.suggest_categorical('actor_learning_rate', [1e-4, 5e-4, 1e-3, 2e-3])
+    critic_learning_rate = trial.suggest_categorical('critic_learning_rate', [1e-4, 5e-4, 1e-3, 2e-3])
     params['actor_learning_rate']  = actor_learning_rate
     params['critic_learning_rate'] = critic_learning_rate
 
-    thau = trial.suggest_categorical('thau', [1e-1, 1e-2, 1e-3])
+    thau = trial.suggest_discrete_uniform('thau', 1e-3, 1e-1, 1e-3)
     params['actor_thau'] = thau
     params['critic_thau'] = thau
 
     batch_size = trial.suggest_categorical('batch_size', [128, 256])
-    params['batch_size'] = int(batch_size)
+    params['batch_size'] = batch_size
 
-    replay_size = int(1000000) "trial.suggest_categorical('batch_size', [100000, 1000000])
-    params['replay_size'] = replay_size
+    update_interval = trial.suggest_int('update_interval', 1, 4)
+    params['update_interval'] = update_interval
+
+    noise_amplitude_start = trial.suggest_discrete_uniform('noise_amplitude_start', 0.1, 5.0, 1.0)
+    params['noise_amplitude_start'] = noise_amplitude_start
+
+    noise_amplitude_decay = trial.suggest_loguniform('noise_amplitude_decay', 0.99, 0.99999)
+    params['noise_amplitude_decay'] = noise_amplitude_decay
+
+    #replay_size = int(1000000) #"trial.suggest_categorical('batch_size', [100000, 1000000])
+    #params['replay_size'] = replay_size
 
     # Optuna objective function
     return train_agent()
@@ -161,7 +175,7 @@ def objective(trial):
 # Create a new Optuna study object.
 study = optuna.create_study()
 # Invoke optimization of the objective function.
-study.optimize(objective , n_trials=300, n_jobs=1)
+study.optimize(objective , n_trials=2000, n_jobs=1)
 # Print and Save result to .csv file
 print('Best value: {} (params: {})\n'.format(study.best_value, study.best_params))
 # Close the environment
