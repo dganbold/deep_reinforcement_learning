@@ -108,7 +108,7 @@ class Agent():
         self.critic_loss = critic_loss.item() # for tensorboard logging
         # Minimize the loss
         critic_loss.backward()
-        #torch.nn.utils.clip_grad_norm_(agent.critic.parameters(), 0.5)
+        #torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 0.5)
         self.critic_optimizer.step()
         # ---------------------------- update actor ---------------------------- #
         # Compute actor loss
@@ -122,12 +122,12 @@ class Agent():
         self.actor_loss = actor_loss.item() # for tensorboard logging
         # Minimize the loss
         actor_loss.backward()
-        #torch.nn.utils.clip_grad_norm_(agent.actor.parameters(),0.5)
+        #torch.nn.utils.clip_grad_norm_(self.actor_local.parameters(),0.5)
         self.actor_optimizer.step()
         # ----------------------- update target networks ----------------------- #
         self.soft_update(self.critic_local, self.critic_target, self.critic_thau)
         self.soft_update(self.actor_local, self.actor_target, self.actor_thau)
-        
+
 
     # https://github.com/ikostrikov/pytorch-ddpg-naf/blob/master/ddpg.py#L11
     def soft_update(self, source, target, tau):
