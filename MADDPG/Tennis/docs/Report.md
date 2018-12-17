@@ -1,7 +1,7 @@
 # Project 3: Collaboration and Competition
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/10624937/42135623-e770e354-7d12-11e8-998d-29fc74429ca2.gif" height="250px">
+    <img src="../../../assets/tennis_maddpg_test.gif" height="250px">
 </p>
 
 ## Description
@@ -77,7 +77,42 @@ Major changes in DDPG agent implementation are:
 ## Hyperparameter tuning
 Bayesian Optimization based software framework [Optuna](https://optuna.org/) is used it as hyperparameter tuning.
 
+Parameter search space is defined as follows:
+* Hidden units: 64x32, 128x64, 256x128, 512x256
+* Learning rate: 1e-4, 5e-4, 1e-3, 2e-3
+* 1e-3 < Thau < 1e-1
+* Batch size: 128, 256
+* 0.99 < Noise amplitude decay < 0.99999
+* 0 < Update interval < 6
+
+Detailed implementation of the hyperparameter tuning can be found in [hyperparameter_tuning.py](https://github.com/dganbold/deep_reinforcement_learning/blob/master/MADDPG/Tennis/hyperparameter_tuning.py) file.
+
+The best performance of certain parameter configurations will be reach 0.5 (average cumulative reward) less than 500 episodes.
+
+<p align="center">
+    <img src="hidden_layers_and_episodes.png" height="260">
+</p>
+<p align="center">
+    <img src="learning_rates_and_episodes.png" height="260">
+</p>
+<p align="center">
+    <img src="thaus_and_episodes.png" height="260">
+</p>
+<p align="center">
+    <img src="batch_sizes_and_episodes.png" height="260">
+</p>
+<p align="center">
+    <img src="noise_amplitude_decays_and_episodes.png" height="260">
+</p>
+<p align="center">
+    <img src="update_intervals_and_episodes.png" height="260">
+</p>
+
 ## Result
+The environment is solved in 600 episodes by [MADDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/MADDPG/agent/MADDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/MADDPG/config/UnityML_Agent.py). [[score history]](../scores/Tennis_MADDPG_1.0E-03_1.0E-03_256_5.0E-02_256.csv).
+<p align="center">
+    <img src="tennis_maddpg_learning_curve.png" height="260">
+</p>
 
 
 ## Future work
