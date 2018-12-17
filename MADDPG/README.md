@@ -74,7 +74,7 @@ all observations, rewards and joint actions. <br />
 ## Supported environments
 
 ### Unity
-- [`Tennis`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/MADDPG/Tennis) with MADDPG | solved in 500 episodes
+- [`Tennis`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/MADDPG/Tennis) with MADDPG | solved in 600 episodes
 
 ## Usage
 
