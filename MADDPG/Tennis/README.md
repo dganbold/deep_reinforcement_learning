@@ -1,7 +1,7 @@
 # Tennis
 
 <p align="center">
-    <img src="../../../assets/tennis_maddpg_test.gif" height="250px">
+    <img src="../../assets/tennis_maddpg_test.gif" height="250px">
 </p>
 
 ## Description
