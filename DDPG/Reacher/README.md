@@ -55,7 +55,6 @@ $ python test.py
 
 # Result
 This environment is solved in 147 episodes by [DDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/agent/DDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/DDPG/config/UnityML_Agent.py). [[score history]](../scores/Reacher_DDPG_1.0E-04_1.0E-04_256_1.0E-03_128.csv).<br />
-See the detailed project report from [Report.md](./docs/Report.md) file.
 <p align="center">
     <img src="./docs/best_score_history.png" height="260">
 </p>
