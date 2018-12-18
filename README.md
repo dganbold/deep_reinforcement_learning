@@ -6,7 +6,7 @@
 
 This repository contains :
   1. Value-Based Methods : (Neural Q-Learning, DQN, Double-DQN, Memory improved DQN)
-  2. Policy-Based Methods:
+  2. Policy-Based Methods: (DDPG)
 
 ## Important notes
 - The code works for PyTorch.
@@ -42,7 +42,8 @@ This repository contains :
 
 ## Unity-ML-Agents Benchmarks
 - `BananaCollector` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning) | solved in 345 episodes. Average Score: 13.02
-
+- `Reacher` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Reacher) | solved in 147 episodes. Average Score: 30
+- `Tennis` with [MADDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/MADDPG/Tennis) | solved in 427 episodes. Average Score: 0.5
 
 ## Linux dependencies
 To set up your python environment to run the code in this repository, follow the instructions below.
@@ -74,4 +75,4 @@ pip install .
 ```
 
 # References
-  [Udacity Deep-Reinforcement-Learning](https://github.com/udacity/deep-reinforcement-learning)
+* Udacity Deep-Reinforcement-Learning [[Github]](https://github.com/udacity/deep-reinforcement-learning)
