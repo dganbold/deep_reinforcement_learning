@@ -58,7 +58,7 @@ If you want to run the code in this repository, check this [instructions](https:
 - `BipedalWalker-v2` with _Coming soon!_
 
 ### Unity
-- [`Reacher`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Reacher) with DDPG | solved in X episodes
+- [`Reacher`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Reacher) with DDPG | solved in 147 episodes
 
 ## Usage
 
