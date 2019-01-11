@@ -52,7 +52,7 @@ If you want to run the code in this repository, check this [instructions](https:
 ### OpenAI Gym
 
 #### Classic Control
-- `Pendulum-v0` with _Coming soon!_
+- [`Pendulum-v0`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Pendulum) with DDPG
 
 #### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
