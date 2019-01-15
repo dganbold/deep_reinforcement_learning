@@ -29,7 +29,7 @@ This repository contains :
 - `Cartpole-v0` with _Coming soon!_
 - `MountainCarContinuous-v0` with _Coming soon!_
 - `MountainCar-v0` with _Coming soon!_
-- `Pendulum-v0` with _Coming soon!_
+- `Pendulum-v0` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG)
 
 ### Box2d
 - `BipedalWalker-v2` with _Coming soon!_
