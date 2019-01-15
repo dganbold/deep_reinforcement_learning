@@ -27,7 +27,7 @@ This repository contains :
 ### Classic Control
 - `Acrobot-v1` with _Coming soon!_
 - `Cartpole-v0` with _Coming soon!_
-- `MountainCarContinuous-v0` with _Coming soon!_
+- `MountainCarContinuous-v0` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG)
 - `MountainCar-v0` with _Coming soon!_
 - `Pendulum-v0` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG)
 
