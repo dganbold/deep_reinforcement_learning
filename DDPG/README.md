@@ -62,7 +62,7 @@ If you want to run the code in this repository, check this [instructions](https:
 - [`Pendulum-v0`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Pendulum) with DDPG
 
 #### Box2d
-- [`BipedalWalker-v2`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/BipedalWalker) with DDPG | solved in 500 episodes
+- [`BipedalWalker-v2`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/BipedalWalker) with DDPG
 
 ### Unity
 - [`Reacher`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Reacher) with DDPG | solved in 147 episodes
