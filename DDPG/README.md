@@ -22,19 +22,9 @@ The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach
 
 ## Result
 
-<p align="center">
-    <em>Unity Reacher environment, trained DDPG.</em>
-</p>
-<p align="center">
-    <img src="../assets/reacher_ddpg_test.gif" height="250px">
-</p>
-
-<p align="center">
-    <em>OpenAI Gym's BipedalWalker environment, trained DDPG.</em>
-</p>
-<p align="center">
-    <img src="../assets/bipedalwalker_maddpg_test.gif" height="250px">
-</p>
+|<p align="center"><img src="../assets/reacher_ddpg_test.gif" height="250px"></p>|<p align="center"><img src="../assets/bipedalwalker_maddpg_test.gif" height="250px"></p>|
+|---|---|
+|<p align="center"><em>Unity Reacher environment</em></p>|<p align="center"><em>OpenAI Gym's BipedalWalker environment</em></p>|
 
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
