@@ -21,12 +21,6 @@ The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach
 </p>
 
 ## Result
-<p align="center">
-    <em>Unity Reacher environment, DDPG Learning curve.</em>
-</p>
-<p align="center">
-    <img src="./Reacher/docs/best_score_history.png" height="260">
-</p>
 
 <p align="center">
     <em>Unity Reacher environment, trained DDPG.</em>
