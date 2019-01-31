@@ -56,14 +56,7 @@ all observations, rewards and joint actions. <br />
  </p>
 
  ## Result
-
- <p align="center">
-     <em>Unity Tennis environment, MADDPG Learning curve.</em>
- </p>
- <p align="center">
-     <img src="./Tennis/docs/tennis_maddpg_learning_curve.png" height="260">
- </p>
-
+ 
  <p align="center">
      <em>Unity Tennis environment, trained MADDPG.</em>
  </p>
