@@ -35,6 +35,13 @@ The [DDPG](https://arxiv.org/abs/1509.02971) is off-policy Actor-Critic approach
     <img src="../assets/reacher_ddpg_test.gif" height="250px">
 </p>
 
+<p align="center">
+    <em>OpenAI Gym's BipedalWalker environment, trained DDPG.</em>
+</p>
+<p align="center">
+    <img src="../assets/bipedalwalker_maddpg_test.gif" height="250px">
+</p>
+
 ## Dependencies
 - [Conda](https://conda.io/docs/user-guide/install/index.html)
 - Python 3.6
@@ -55,7 +62,7 @@ If you want to run the code in this repository, check this [instructions](https:
 - [`Pendulum-v0`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Pendulum) with DDPG
 
 #### Box2d
-- `BipedalWalker-v2` with _Coming soon!_
+- [BipedalWalker-v2](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/BipedalWalker) with DDPG | solved in 500 episodes
 
 ### Unity
 - [`Reacher`](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/Reacher) with DDPG | solved in 147 episodes
