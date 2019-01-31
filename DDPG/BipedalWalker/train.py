@@ -39,7 +39,7 @@ filename = filename_format.format(  params['env_name'],agent.name,      \
                                     params['actor_learning_rate'],      \
                                     params['critic_learning_rate'],     \
                                     params['actor_hidden_layers'][0],   \
-                                    params['thau'],params['batch_size'])
+                                    params['actor_thau'],params['batch_size'])
 max_step = 700
 max_score = -np.Inf
 scores = []                                                  # list containing scores from each episode

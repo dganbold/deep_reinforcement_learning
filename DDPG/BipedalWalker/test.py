@@ -22,8 +22,6 @@ print('Number of actions : ', action_size)
 print('  - low:', env.action_space.low)
 print('  - high:', env.action_space.high)
 print('Dimension of state space : ', state_size)
-print('  - low:', env.observation_space.low)
-print('  - high:', env.observation_space.high)
 
 # Initialize agent
 agent = Agent(state_size=state_size, action_size=action_size, param=params, seed=params['random_seed'])
@@ -34,7 +32,7 @@ filename = filename_format.format(  params['env_name'],agent.name,      \
                                     params['actor_learning_rate'],      \
                                     params['critic_learning_rate'],     \
                                     params['actor_hidden_layers'][0],   \
-                                    params['thau'],params['batch_size'])
+                                    params['actor_thau'],params['batch_size'])
 
 # Load the pre-trained network
 agent.import_network('./models/{:s}'.format(filename))
@@ -43,7 +41,13 @@ print('Hyperparameter values:')
 pprint.pprint(params)
 
 # Define parameters for test
-episodes = 20                                       # maximum number of test episodes
+episodes = 1                                       # maximum number of test episodes
+
+#from gym.wrappers import Monitor
+#env = Monitor(env, './video')
+#state = env.reset()
+#env.render()
+#input('Press enter to start:')
 
 """ Test loop  """
 for i_episode in range(1, episodes+1):
@@ -56,7 +60,7 @@ for i_episode in range(1, episodes+1):
     # One episode loop
     while not done:
         # Action selection
-        action = agent.act(state,add_noise=False)
+        action = agent.act(state,noise_amplitude=0.0)
         env.render()
 
         # Take action and get rewards and new state
