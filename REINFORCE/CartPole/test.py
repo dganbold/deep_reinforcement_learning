@@ -40,7 +40,10 @@ filename = filename_format.format(  params['env_name'],agent.name,      \
 agent.import_network('./models/{:s}'.format(filename))
 
 # Define parameters for test
-episodes = 5                                       # maximum number of test episodes
+episodes = 2                                       # maximum number of test episodes
+
+#from gym.wrappers import Monitor
+#env = Monitor(env, './video')
 
 """ Test loop  """
 for i_episode in range(1, episodes+1):
@@ -54,7 +57,7 @@ for i_episode in range(1, episodes+1):
     while not done:
         # Action selection
         action, log_prob = agent.act(state)
-        env.render()
+        #env.render()
 
         # Take action and get rewards and new state
         next_state, reward, done, _ = env.step(action)
