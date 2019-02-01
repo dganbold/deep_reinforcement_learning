@@ -32,7 +32,7 @@ This repository contains :
 - `Pendulum-v0` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG)
 
 ### Box2d
-- `BipedalWalker-v2` with _Coming soon!_
+- `BipedalWalker-v2` with [DDPG](https://github.com/dganbold/deep_reinforcement_learning/tree/master/DDPG/BipedalWalker)
 - `CarRacing-v0` with _Coming soon!_
 - `LunarLander-v2` with [NeuralQLearner](https://github.com/dganbold/deep_reinforcement_learning/tree/master/NeuralQLearning) | solved in 314 episodes. Average Score: 200.5
 ### Toy Text
