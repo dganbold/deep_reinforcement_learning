@@ -56,5 +56,5 @@ $ python test.py
 # Result
 The environment is solved in 427 episodes by [MADDPG](https://github.com/dganbold/deep_reinforcement_learning/blob/master/MADDPG/agent/MADDPG.py) with [hyperparameters](https://github.com/dganbold/deep_reinforcement_learning/blob/master/MADDPG/config/UnityML_Agent.py). [[score history]](scores/Tennis_MADDPG_1.0E-03_1.0E-03_256_4.3E-02_128.csv).<br />
 <p align="center">
-    <img src="./docs/tennis_maddpg_learning_curve.png" height="260">
+    <img src="./scores/Tennis_MADDPG_1.0E-03_1.0E-03_256_4.3E-02_128.png" height="260">
 </p>
