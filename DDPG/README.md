@@ -7,7 +7,7 @@ In this project, implemented Deep Deterministic Policy Gradient(DDPG) algorithm 
 - [Distributed Distributional Deterministic Policy Gradients](https://arxiv.org/abs/1804.08617)
 
 ## Background
-Policy-based methods are well-suited for continuous action spaces but it has several drawbacks suck as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
+Policy-based methods are well-suited for continuous action spaces but it has several drawbacks such as evaluating policy is generally inefficient and high variance. The Actor-Critic methods reduce variance with respect to pure policy search methods. It uses function approximation to learn a policy(Actor) and a value function(Critic).
 
 <p align="center">
     <img src="../assets/actor_critic.png" height="220px">
