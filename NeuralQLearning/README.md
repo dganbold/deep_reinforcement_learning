@@ -34,12 +34,28 @@ The value of this policy evaluated by target Q-network. This new Q target is sho
 
 ## Result
 
+#### Learning curve : OpenAI Gym LunarLander-v2
+
 <p align="center">
     <img src="./LunarLander/scores/NeuralQLearner_vs_DoubleQLearner_LunarLander-v2_batch_64_lr_5E-04.png" height="220px">
 </p>
 
+#### Learning process of DQN agent : OpenAI Gym LunarLander-v2
+
+<p align="center">
+    <img src="../assets/LunarLander_multi_test.gif" height="250px">
+</p>
+
+#### Learning curve : Unity BananaCollector
+
 <p align="center">
     <img src="./BananaCollector/scores/NeuralQLearner_vs_DoubleQLearner_Banana_Collector_batch_64_lr_4E-04.png" height="220px">
+</p>
+
+#### Learning process of DQN agent : Unity BananaCollector
+
+<p align="center">
+    <img src="../assets/BananaCollector_multi_test.gif" height="270px">
 </p>
 
 
