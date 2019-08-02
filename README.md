@@ -4,6 +4,11 @@
 
 ## PyTorch implementation of Deep Reinforcement Learning Algorithms
 
+<p align="center">
+    <img src="assets/LunarLander_multi_test.gif" height="250px">
+</p>
+
+
 This repository contains :
   1. Value-Based Methods : (Neural Q-Learning, DQN, Double-DQN, Memory improved DQN)
   2. Policy-Based Methods: (DDPG)
