@@ -7,9 +7,6 @@
 <p align="center">
     <img src="assets/LunarLander_multi_test.gif" height="250px">
 </p>
-<p align="center">
-    <img src="assets/Reacher_multi_test.gif" height="250px">
-</p>
 
 This repository contains :
   1. Value-Based Methods : (Neural Q-Learning, DQN, Double-DQN, Memory improved DQN)
