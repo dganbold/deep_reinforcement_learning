@@ -8,7 +8,7 @@
     <img src="assets/LunarLander_multi_test.gif" height="250px">
 </p>
 <p align="center">
-    <img src="assets/BipedalWalker_multi_test.gif" height="250px">
+    <img src="assets/Reacher_multi_test.gif" height="250px">
 </p>
 
 This repository contains :
